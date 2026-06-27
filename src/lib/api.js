@@ -1,0 +1,64 @@
+// ?? instead of || so an empty string (Docker/nginx proxy mode) is preserved
+const BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
+
+const getToken = () => localStorage.getItem('lumintora_token')
+
+async function request(path, options = {}) {
+  const token = getToken()
+  const res = await fetch(`${BASE}${path}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...options.headers,
+    },
+    ...options,
+  })
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: 'Request failed' }))
+    throw new Error(err.error || 'Request failed')
+  }
+
+  if (res.status === 204) return null
+  return res.json()
+}
+
+export const api = {
+  // Auth
+  register: (data) => request('/api/v1/auth/register', { method: 'POST', body: JSON.stringify(data) }),
+  login: (data) => request('/api/v1/auth/login', { method: 'POST', body: JSON.stringify(data) }),
+
+  // User
+  me: () => request('/api/v1/me'),
+  updateMe: (data) => request('/api/v1/me', { method: 'PATCH', body: JSON.stringify(data) }),
+  activity: () => request('/api/v1/me/activity'),
+
+  // Paths
+  listPaths: () => request('/api/v1/paths'),
+  getPath: (id) => request(`/api/v1/paths/${id}`),
+  deletePath: (id) => request(`/api/v1/paths/${id}`, { method: 'DELETE' }),
+
+  // Modules
+  getModule: (id) => request(`/api/v1/modules/${id}`),
+  getContent: (id) => request(`/api/v1/modules/${id}/content`),
+  startModule: (id) => request(`/api/v1/modules/${id}/start`, { method: 'POST' }),
+  completeModule: (id) => request(`/api/v1/modules/${id}/complete`, { method: 'POST' }),
+  moduleFeedback: (id, feedback) => request(`/api/v1/modules/${id}/feedback`, { method: 'POST', body: JSON.stringify({ feedback }) }),
+  adaptPath: (pathId, triggerModuleId) => request(`/api/v1/paths/${pathId}/adapt`, { method: 'POST', body: JSON.stringify({ trigger_module_id: triggerModuleId }) }),
+  getQuiz: (id) => request(`/api/v1/modules/${id}/quiz`),
+  submitQuiz: (id, answers) => request(`/api/v1/modules/${id}/quiz`, { method: 'POST', body: JSON.stringify({ answers }) }),
+
+  // AI
+  generatePath: (data) => request('/api/v1/ai/generate-path', { method: 'POST', body: JSON.stringify(data) }),
+  explain: (data) => request('/api/v1/ai/explain', { method: 'POST', body: JSON.stringify(data) }),
+  hint: (data) => request('/api/v1/ai/hint', { method: 'POST', body: JSON.stringify(data) }),
+  evaluateCode: (data) => request('/api/v1/ai/evaluate-code', { method: 'POST', body: JSON.stringify(data) }),
+  generateResume: (data) => request('/api/v1/ai/generate-resume', { method: 'POST', body: JSON.stringify(data) }),
+
+  // Multi-language code execution (python3, java, …) via the backend gateway.
+  execute: (data) => request('/api/v1/execute', { method: 'POST', body: JSON.stringify(data) }),
+
+  // Other
+  joinWaitlist: (email) => request('/api/v1/waitlist', { method: 'POST', body: JSON.stringify({ email }) }),
+  leaderboard: () => request('/api/v1/leaderboard'),
+}
