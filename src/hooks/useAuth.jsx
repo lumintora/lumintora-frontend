@@ -25,11 +25,18 @@ export function AuthProvider({ children }) {
     return user
   }
 
-  const register = async (email, name, password) => {
-    const { token, user } = await api.register({ email, name, password })
+  const register = async (email, name, username, password) => {
+    const { token, user } = await api.register({ email, name, username, password })
     localStorage.setItem('lumintora_token', token)
     setUser(user)
     return user
+  }
+
+  const loginWithToken = async (token) => {
+    localStorage.setItem('lumintora_token', token)
+    const u = await api.me()
+    setUser(u)
+    return u
   }
 
   const logout = () => {
@@ -40,7 +47,7 @@ export function AuthProvider({ children }) {
   const refreshUser = () => api.me().then(setUser)
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, refreshUser }}>
+    <AuthContext.Provider value={{ user, loading, login, register, loginWithToken, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   )

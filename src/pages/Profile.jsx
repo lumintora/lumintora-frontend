@@ -7,7 +7,7 @@ import StreakHeatmap from '../components/StreakHeatmap'
 import { Button, StatCard, Spinner } from '../components/UI'
 import {
   Zap, Flame, Trophy, CalendarDays, Mail, Phone, Globe, MapPin,
-  Twitter, Github, Linkedin, Pencil, X, Check, Calendar, Link2,
+  Twitter, Github, Linkedin, Pencil, X, Check, Calendar, Link2, AtSign, Share2,
 } from 'lucide-react'
 import '../components/UI.css'
 
@@ -38,6 +38,16 @@ export default function Profile() {
   const [activity, setActivity] = useState(null)
   const [loadingAct, setLoadingAct] = useState(true)
   const [editing, setEditing] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  const handleShare = () => {
+    const handle = user.username ? `@${user.username}` : user.name
+    const text = `${handle} on Lumintora\nhttps://www.lumintora.in`
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
 
   useEffect(() => {
     api.activity().then(setActivity).catch(() => setActivity(null)).finally(() => setLoadingAct(false))
@@ -82,15 +92,26 @@ export default function Profile() {
                 <div className="profile-hero-top">
                   <div>
                     <h1 className="profile-name">{user.name}</h1>
+                    {user.username && (
+                      <div style={{ fontSize: 15, color: 'var(--accent-ink)', fontWeight: 600, marginTop: 3, display: 'flex', alignItems: 'center', gap: 4 }}>
+                        <AtSign size={14} />{user.username}
+                      </div>
+                    )}
                     {joined && (
                       <div className="profile-joined">
                         <Calendar size={13} /> Joined {joined}
                       </div>
                     )}
                   </div>
-                  <Button variant="secondary" size="sm" icon={Pencil} onClick={() => setEditing(true)}>
-                    Edit details
-                  </Button>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <Button variant="ghost" size="sm" icon={copied ? Check : Share2} onClick={handleShare}
+                      style={{ color: copied ? 'var(--accent-ink)' : undefined }}>
+                      {copied ? 'Copied!' : 'Share'}
+                    </Button>
+                    <Button variant="secondary" size="sm" icon={Pencil} onClick={() => setEditing(true)}>
+                      Edit details
+                    </Button>
+                  </div>
                 </div>
 
                 {user.bio && <p className="profile-bio">{user.bio}</p>}
@@ -172,6 +193,7 @@ export default function Profile() {
 
 const FIELDS = [
   { key: 'name', label: 'Display name', icon: null, placeholder: 'Your name', required: true },
+  { key: 'username', label: 'Username', icon: AtSign, placeholder: 'your_username', hint: 'Letters, numbers, - and _ only' },
   { key: 'email', label: 'Email', icon: Mail, type: 'email', placeholder: 'you@example.com', required: true },
   { key: 'phone', label: 'Phone number', icon: Phone, type: 'tel', placeholder: '+1 555 000 1234' },
   { key: 'location', label: 'Location', icon: MapPin, placeholder: 'City, Country' },
@@ -182,7 +204,7 @@ const FIELDS = [
 function EditProfileModal({ user, onClose, onSaved }) {
   const dialogRef = useRef(null)
   const [form, setForm] = useState(() => {
-    const f = { name: '', email: '', phone: '', location: '', website: '', avatar_url: '', bio: '', twitter: '', github: '', linkedin: '' }
+    const f = { name: '', username: '', email: '', phone: '', location: '', website: '', avatar_url: '', bio: '', twitter: '', github: '', linkedin: '' }
     for (const k of Object.keys(f)) f[k] = user[k] || ''
     return f
   })
@@ -230,10 +252,11 @@ function EditProfileModal({ user, onClose, onSaved }) {
                   className={`field-input ${fld.icon ? 'field-input-icon' : ''}`}
                   type={fld.type || 'text'}
                   value={form[fld.key]}
-                  onChange={set(fld.key)}
+                  onChange={e => set(fld.key)(e)}
                   placeholder={fld.placeholder}
                 />
               </div>
+              {fld.hint && <div style={{ fontSize: 12, color: 'var(--text-3)', marginTop: 3 }}>{fld.hint}</div>}
             </div>
           ))}
 

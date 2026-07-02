@@ -14,6 +14,11 @@ import Onboarding from './pages/Onboarding'
 import Playground from './pages/Playground'
 import Profile from './pages/Profile'
 import ResumeGenerator from './pages/ResumeGenerator'
+import FeedbackForm from './pages/FeedbackForm'
+import BlogPost from './pages/BlogPost'
+import BlogIndex from './pages/BlogIndex'
+import GoogleSuccess from './pages/GoogleSuccess'
+import GoogleComplete from './pages/GoogleComplete'
 import AiChat from './components/AiChat'
 
 // The AI tutor only appears once the learner is signed in.
@@ -27,7 +32,7 @@ function ChatGate() {
 function ThemeController() {
   const { pathname } = useLocation()
   useLayoutEffect(() => {
-    applyTheme(pathname === '/' ? DEFAULT_THEME : getSavedThemeId())
+    applyTheme(pathname === '/' || pathname.startsWith('/blog') ? DEFAULT_THEME : getSavedThemeId())
   }, [pathname])
   return null
 }
@@ -68,6 +73,11 @@ export default function App() {
           <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/resume" element={<ProtectedRoute><ResumeGenerator /></ProtectedRoute>} />
+          <Route path="/feedback" element={<ProtectedRoute><FeedbackForm /></ProtectedRoute>} />
+          <Route path="/auth/success" element={<GoogleSuccess />} />
+          <Route path="/auth/complete" element={<GoogleComplete />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/blog" element={<BlogIndex />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <ChatGate />

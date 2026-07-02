@@ -27,13 +27,13 @@ export function LogoMark({ size = 32, className = '', accent = '#7140ff', dark =
  * Full lockup: mark + "lumintora" wordmark. `variant="compact"` hides the
  * wordmark; `wordColor` overrides the text colour (defaults to brand text).
  */
-export default function Logo({ size = 30, withText = true, fontSize, className = '', wordColor = 'var(--text)' }) {
+export default function Logo({ size = 30, withText = true, fontSize, className = '', wordColor = 'var(--text)', surface, dark, accent }) {
   return (
     <span
       className={className}
       style={{ display: 'inline-flex', alignItems: 'center', gap: size * 0.34, lineHeight: 1, color: 'var(--text)' }}
     >
-      <LogoMark size={size} />
+      <LogoMark size={size} surface={surface} dark={dark} accent={accent} />
       {withText && (
         <span
           style={{

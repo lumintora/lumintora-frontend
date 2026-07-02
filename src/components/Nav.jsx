@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { useOnline } from '../hooks/useOnline'
 import {
-  LayoutDashboard, Trophy, LogOut, Plus, Zap, Code2, User, FileText
+  LayoutDashboard, Trophy, LogOut, Plus, Zap, Code2, User, FileText, MessageSquare
 } from 'lucide-react'
 import Logo from './Logo'
 import './UI.css'
@@ -57,7 +57,7 @@ export default function Nav() {
             <Link
               to="/profile"
               className="avatar nav-avatar"
-              title={`${user.name} — ${online ? 'online' : 'offline'}`}
+              title={`${user.name}${user.username ? ` (@${user.username})` : ''} — ${online ? 'online' : 'offline'}`}
               style={{
                 width: 34, height: 34, fontSize: 14,
                 ...(user.avatar_url ? { backgroundImage: `url(${user.avatar_url})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}),
@@ -121,6 +121,12 @@ export function Sidebar() {
         className={`sidebar-item ${location.pathname === '/resume' ? 'active' : ''}`}
       >
         <FileText size={17} /> Resume
+      </Link>
+      <Link
+        to="/feedback"
+        className={`sidebar-item ${location.pathname === '/feedback' ? 'active' : ''}`}
+      >
+        <MessageSquare size={17} /> Feedback
       </Link>
     </div>
   )

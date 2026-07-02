@@ -70,6 +70,9 @@ export default function Leaderboard() {
                       {entry?.name?.[0]?.toUpperCase()}
                     </div>
                     <div style={{ fontWeight: 600, fontSize: 14 }}>{entry?.name}</div>
+                    {entry?.username && (
+                      <div style={{ fontSize: 11, color: 'var(--text-3)' }}>@{entry.username}</div>
+                    )}
                     <div style={{ fontSize: 12, color: 'var(--accent-ink)', fontWeight: 700 }}>{entry?.xp} XP</div>
                   </div>
                 </div>
@@ -106,9 +109,14 @@ export default function Leaderboard() {
                             <div className="avatar" style={{ width: 34, height: 34, fontSize: 13, background: avatarColor(entry.name) }}>
                               {entry.name[0].toUpperCase()}
                             </div>
-                            <div style={{ fontWeight: 600, fontSize: 14 }}>
-                              {entry.name}
-                              {isMe && <span style={{ fontSize: 11, color: 'var(--accent-ink)', marginLeft: 6, fontWeight: 600 }}>you</span>}
+                            <div>
+                              <div style={{ fontWeight: 600, fontSize: 14 }}>
+                                {entry.name}
+                                {isMe && <span style={{ fontSize: 11, color: 'var(--accent-ink)', marginLeft: 6, fontWeight: 600 }}>you</span>}
+                              </div>
+                              {entry.username && (
+                                <div style={{ fontSize: 11, color: 'var(--text-3)', marginTop: 1 }}>@{entry.username}</div>
+                              )}
                             </div>
                           </div>
                         </td>

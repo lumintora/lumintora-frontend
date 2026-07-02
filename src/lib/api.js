@@ -61,4 +61,8 @@ export const api = {
   // Other
   joinWaitlist: (email) => request('/api/v1/waitlist', { method: 'POST', body: JSON.stringify({ email }) }),
   leaderboard: () => request('/api/v1/leaderboard'),
+  submitFeedback: (data) => request('/api/v1/feedback', { method: 'POST', body: JSON.stringify(data) }),
+  submitContact: (data) => request('/api/v1/contact', { method: 'POST', body: JSON.stringify(data) }),
+  chat: (message, history) => request('/api/v1/chat', { method: 'POST', body: JSON.stringify({ message, history }) }),
+  googleComplete: (data) => request('/api/v1/auth/google/complete', { method: 'POST', body: JSON.stringify(data) }),
 }
