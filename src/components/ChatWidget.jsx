@@ -47,15 +47,17 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Floating bubble */}
-      <button
-        className={`chat-fab ${open ? 'chat-fab-open' : ''}`}
-        onClick={() => setOpen(o => !o)}
-        aria-label={open ? 'Close chat' : 'Open chat'}
-      >
-        {open ? <X size={20} /> : <MessageCircle size={22} />}
-        {!open && <span className="chat-fab-ping" />}
-      </button>
+      {/* Floating bubble — hidden while panel is open */}
+      {!open && (
+        <button
+          className="chat-fab"
+          onClick={() => setOpen(true)}
+          aria-label="Open chat"
+        >
+          <MessageCircle size={22} />
+          <span className="chat-fab-ping" />
+        </button>
+      )}
 
       {/* Chat panel */}
       {open && (
@@ -66,7 +68,9 @@ export default function ChatWidget() {
               <div className="chat-panel-name">Lumi</div>
               <div className="chat-panel-status"><span className="chat-online-dot" />Online</div>
             </div>
-            <button className="chat-panel-close" onClick={() => setOpen(false)}><X size={16} /></button>
+            <button className="chat-panel-close" onClick={() => setOpen(false)} aria-label="Close chat">
+              <X size={16} />
+            </button>
           </div>
 
           <div className="chat-messages">
