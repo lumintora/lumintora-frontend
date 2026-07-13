@@ -405,38 +405,42 @@ export default function Landing() {
       {/* ── Hero ── */}
       <div className="landing-hero">
         <div className="landing-glow" />
-        <div className="landing-glow" style={{ width: 540, height: 380, top: '22%', opacity: 0.6 }} />
+        <div className="landing-glow" style={{ width: 540, height: 380, top: '30%', left: '65%', opacity: 0.55 }} />
 
-        <div className="beta-pill animate-fade">
-          <span className="beta-pill-tag">BETA</span>
-          <span>Lumintora v1 is live — completely free</span>
-        </div>
+        <div className="landing-hero-inner">
+          <div className="landing-hero-text">
+            <div className="beta-pill animate-fade">
+              <span className="beta-pill-tag">BETA</span>
+              <span>Lumintora v1 is live — completely free</span>
+            </div>
 
-        <h1 className="landing-h1 animate-fade" style={{ animationDelay: '0.05s' }}>
-          Your goal. Your path.<br />
-          <span className="gradient-text" style={{ fontStyle: 'italic' }}>Your way to learn.</span>
-        </h1>
+            <h1 className="landing-h1 animate-fade" style={{ animationDelay: '0.05s' }}>
+              Your goal. Your path.<br />
+              <span className="gradient-text" style={{ fontStyle: 'italic' }}>Your way to learn.</span>
+            </h1>
 
-        <p className="landing-sub animate-fade" style={{ animationDelay: '0.1s', maxWidth: 540 }}>
-          AI builds a learning path around where you are — not where it assumes you should be.
-          Real coding practice. Adaptive quizzes. Free.
-        </p>
+            <p className="landing-sub animate-fade" style={{ animationDelay: '0.1s' }}>
+              AI builds a learning path around where you are — not where it assumes you should be.
+              Real coding practice. Adaptive quizzes. Free.
+            </p>
 
-        <div className="landing-cta animate-fade" style={{ animationDelay: '0.15s' }}>
-          <Link to="/register" className="btn btn-primary btn-xl">Start learning free <ArrowRight size={16} /></Link>
-          <Link to="/login" className="btn btn-secondary btn-xl">Sign in</Link>
-        </div>
+            <div className="landing-cta animate-fade" style={{ animationDelay: '0.15s' }}>
+              <Link to="/register" className="btn btn-primary btn-xl">Start learning free <ArrowRight size={16} /></Link>
+              <Link to="/login" className="btn btn-secondary btn-xl">Sign in</Link>
+            </div>
 
-        <div className="animate-fade lp-hero-trust" style={{ animationDelay: '0.18s' }}>
-          {['No credit card', 'AI-generated paths', 'Real coding judge', 'Completely free'].map((t) => (
-            <span key={t} className="lp-trust-item">
-              <CheckCircle2 size={14} color="var(--green)" /> {t}
-            </span>
-          ))}
-        </div>
+            <div className="animate-fade lp-hero-trust" style={{ animationDelay: '0.18s' }}>
+              {['No credit card', 'AI-generated paths', 'Real coding judge', 'Completely free'].map((t) => (
+                <span key={t} className="lp-trust-item">
+                  <CheckCircle2 size={14} color="var(--green)" /> {t}
+                </span>
+              ))}
+            </div>
+          </div>
 
-        <div className="landing-hero-shot animate-fade" style={{ animationDelay: '0.22s' }}>
-          <DashboardShot />
+          <div className="landing-hero-shot animate-fade" style={{ animationDelay: '0.22s' }}>
+            <DashboardShot />
+          </div>
         </div>
       </div>
 
