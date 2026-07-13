@@ -8,7 +8,7 @@ import {
   GraduationCap, Zap, Terminal, CheckCircle2, BookOpen, User,
   Play, Plus, LayoutDashboard, FileText, MessageSquare, LogOut,
   Mail, Globe, MapPin, ChevronDown, Users, Heart, Github, Twitter,
-  GitBranch, Shield, Database,
+  GitBranch, Shield, Database, Briefcase, Award, Star, X, Bug, Search,
 } from 'lucide-react'
 import '../components/UI.css'
 import ChatWidget from '../components/ChatWidget'
@@ -313,6 +313,230 @@ function ContactForm() {
         Or email us at <a href="mailto:lumintoraai@gmail.com" style={{ color: 'var(--accent-ink)' }}>lumintoraai@gmail.com</a>
       </p>
     </form>
+  )
+}
+
+const ROLES = {
+  gtm: {
+    title: 'GTM Intern',
+    icon: Users,
+    color: '#7c3aed',
+    tagline: 'Grow Lumintora across campuses',
+    description: 'Help us reach more learners by building Lumintora\'s presence in colleges, tech communities, and campus clubs across India.',
+    responsibilities: [
+      'Represent Lumintora in IEEE, GDG, ACM, and coding clubs',
+      'Organise or attend campus events and hackathons',
+      'Create content and drive social media awareness',
+      'Collect student feedback and report insights to the team',
+      'Onboard your campus friends and track growth metrics',
+    ],
+    benefits: [
+      { icon: Award, text: 'Certificate of Internship' },
+      { icon: FileText, text: 'Letter of Recommendation' },
+      { icon: Star, text: 'LinkedIn endorsement from founders' },
+      { icon: Trophy, text: 'Lumintora Pro access — free' },
+    ],
+    questions: [
+      { key: 'communities', label: 'Are you part of any technical communities?', placeholder: 'e.g. IEEE Student Branch, Google Developer Group, ACM, coding clubs — describe your role and involvement.', rows: 3 },
+      { key: 'events', label: 'Have you organised or attended any tech events, hackathons, or conferences?', placeholder: 'Tell us what you did, the event name, and how many people were involved.', rows: 3 },
+      { key: 'growth_strategy', label: 'How would you grow Lumintora\'s user base in your college?', placeholder: 'Walk us through your strategy step by step.', rows: 3 },
+      { key: 'creative_idea', label: 'What\'s one creative way you\'d get 100 students to try Lumintora next month?', placeholder: 'Be specific — channels, hooks, messaging, execution.', rows: 3 },
+    ],
+  },
+  qa: {
+    title: 'QA Intern',
+    icon: Bug,
+    color: '#0891b2',
+    tagline: 'Ship a flawless product',
+    description: 'Help us deliver a bug-free, polished experience by testing features, finding edge cases, and writing detailed reports that the dev team can act on.',
+    responsibilities: [
+      'Test new and existing features end-to-end across devices',
+      'Write detailed bug reports with clear reproduction steps',
+      'Verify fixes and check for regressions',
+      'Test on mobile, desktop, and across browsers',
+      'Collaborate directly with developers to close issues fast',
+    ],
+    benefits: [
+      { icon: Award, text: 'Certificate of Internship' },
+      { icon: FileText, text: 'Letter of Recommendation' },
+      { icon: Star, text: 'LinkedIn endorsement from founders' },
+      { icon: Trophy, text: 'Lumintora Pro access — free' },
+    ],
+    questions: [
+      { key: 'first_feature', label: 'If we hired you today, which Lumintora feature would you test first, and why?', placeholder: 'Sign in to lumintora.in, explore it, then answer. Be specific about the feature and your reasoning.', rows: 3 },
+      { key: 'three_bugs', label: 'Find 3 bugs on Lumintora and describe each one.', placeholder: 'For each bug: what you did → what happened → what you expected. (Sign in to explore the full product.)', rows: 5 },
+      { key: 'approach', label: 'How do you approach testing a feature you\'ve never used before?', placeholder: 'Walk us through your process — happy path, edge cases, devices, etc.', rows: 3 },
+      { key: 'experience', label: 'Any prior testing experience? (manual, automated, tools)', placeholder: 'e.g. manual testing, Selenium, Postman, browser DevTools — or just curious beginners are fine too.', rows: 2 },
+    ],
+  },
+}
+
+function CareerApplyModal({ role, onClose }) {
+  const r = ROLES[role]
+  const [step, setStep] = useState(1)
+  const [form, setForm] = useState({ name: '', email: '', college: '', year: '', linkedin: '' })
+  const [answers, setAnswers] = useState({})
+  const [status, setStatus] = useState('idle')
+
+  const set = k => e => setForm(f => ({ ...f, [k]: e.target.value }))
+  const setAns = k => e => setAnswers(a => ({ ...a, [k]: e.target.value }))
+
+  const submit = async e => {
+    e.preventDefault()
+    setStatus('loading')
+    try {
+      await fetch('https://lumintora-api.onrender.com/api/v1/careers/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, role, answers }),
+      }).then(r => { if (!r.ok) throw new Error() })
+      setStatus('done')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  const step1Valid = form.name.trim() && form.email.trim() && form.college.trim() && form.year
+
+  return (
+    <div className="career-modal-backdrop" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className="career-modal">
+        <div className="career-modal-header" style={{ background: `linear-gradient(135deg, ${r.color}22 0%, transparent 100%)`, borderBottom: '1px solid var(--border)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div className="career-modal-icon" style={{ background: `${r.color}22`, color: r.color }}><r.icon size={18} /></div>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: 16 }}>{r.title}</div>
+              <div style={{ fontSize: 12, color: 'var(--text-3)' }}>Unpaid Internship · Remote · India</div>
+            </div>
+          </div>
+          <button className="career-modal-close" onClick={onClose}><X size={18} /></button>
+        </div>
+
+        {status === 'done' ? (
+          <div className="career-modal-success">
+            <div className="career-success-ico"><CheckCircle2 size={40} color="var(--green)" /></div>
+            <h3>Application received!</h3>
+            <p>We'll review it and get back to you within 5 business days at <strong>{form.email}</strong>.</p>
+            <button className="btn btn-primary" onClick={onClose} style={{ marginTop: 16 }}>Close</button>
+          </div>
+        ) : (
+          <form onSubmit={submit} className="career-modal-body">
+            {/* Step indicator */}
+            <div className="career-steps">
+              <div className={`career-step ${step >= 1 ? 'active' : ''}`}><span>1</span>Basic info</div>
+              <div className="career-step-line" />
+              <div className={`career-step ${step >= 2 ? 'active' : ''}`}><span>2</span>Your answers</div>
+            </div>
+
+            {step === 1 && (
+              <div className="career-fields">
+                <div className="career-row">
+                  <div className="career-field">
+                    <label>Full name *</label>
+                    <input className="field-input" value={form.name} onChange={set('name')} placeholder="Your name" required />
+                  </div>
+                  <div className="career-field">
+                    <label>Email *</label>
+                    <input className="field-input" type="email" value={form.email} onChange={set('email')} placeholder="you@college.edu" required />
+                  </div>
+                </div>
+                <div className="career-row">
+                  <div className="career-field">
+                    <label>College / University *</label>
+                    <input className="field-input" value={form.college} onChange={set('college')} placeholder="e.g. NIT Warangal" required />
+                  </div>
+                  <div className="career-field">
+                    <label>Year of study *</label>
+                    <select className="field-input" value={form.year} onChange={set('year')} required>
+                      <option value="">Select year</option>
+                      <option>1st year</option>
+                      <option>2nd year</option>
+                      <option>3rd year</option>
+                      <option>4th year</option>
+                      <option>Postgraduate</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="career-field">
+                  <label>LinkedIn profile <span style={{ color: 'var(--text-3)', fontWeight: 400 }}>(optional)</span></label>
+                  <input className="field-input" value={form.linkedin} onChange={set('linkedin')} placeholder="https://linkedin.com/in/yourname" />
+                </div>
+                <button type="button" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: 8 }}
+                  disabled={!step1Valid} onClick={() => setStep(2)}>
+                  Continue <ArrowRight size={15} />
+                </button>
+              </div>
+            )}
+
+            {step === 2 && (
+              <div className="career-fields">
+                <p style={{ fontSize: 13, color: 'var(--text-2)', margin: '0 0 18px', padding: '10px 12px', background: 'var(--bg-1)', borderRadius: 8, border: '1px solid var(--border)' }}>
+                  Answer honestly — we value thoughtfulness over perfection. These responses decide if you move forward.
+                </p>
+                {r.questions.map(q => (
+                  <div key={q.key} className="career-field">
+                    <label>{q.label} *</label>
+                    <textarea className="field-input" rows={q.rows} placeholder={q.placeholder}
+                      value={answers[q.key] || ''} onChange={setAns(q.key)}
+                      style={{ resize: 'vertical', lineHeight: 1.55 }} required />
+                  </div>
+                ))}
+                {status === 'error' && <p style={{ color: 'var(--rose)', fontSize: 13 }}>Something went wrong. Please try again.</p>}
+                <div style={{ display: 'flex', gap: 10, marginTop: 8 }}>
+                  <button type="button" className="btn btn-secondary" onClick={() => setStep(1)}>← Back</button>
+                  <button type="submit" className="btn btn-primary" style={{ flex: 1, justifyContent: 'center' }}
+                    disabled={status === 'loading'}>
+                    {status === 'loading' ? 'Submitting…' : 'Submit application'}
+                  </button>
+                </div>
+              </div>
+            )}
+          </form>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function RoleCard({ roleKey }) {
+  const [open, setOpen] = useState(false)
+  const r = ROLES[roleKey]
+  return (
+    <>
+      <div className="career-card">
+        <div className="career-card-top">
+          <div className="career-card-icon" style={{ background: `${r.color}18`, color: r.color }}><r.icon size={22} /></div>
+          <span className="career-unpaid-badge">Unpaid · Remote</span>
+        </div>
+        <h3 className="career-card-title">{r.title}</h3>
+        <p className="career-card-tagline">{r.tagline}</p>
+        <p className="career-card-desc">{r.description}</p>
+
+        <div className="career-card-section">
+          <div className="career-card-section-head">What you'll do</div>
+          <ul className="career-card-list">
+            {r.responsibilities.map(item => (
+              <li key={item}><Check size={13} style={{ color: r.color, flexShrink: 0, marginTop: 2 }} />{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="career-card-section">
+          <div className="career-card-section-head">What you get</div>
+          <div className="career-benefits">
+            {r.benefits.map(b => (
+              <div key={b.text} className="career-benefit"><b.icon size={13} style={{ color: r.color }} />{b.text}</div>
+            ))}
+          </div>
+        </div>
+
+        <button className="btn btn-primary career-apply-btn" style={{ marginTop: 'auto', width: '100%', justifyContent: 'center' }}
+          onClick={() => setOpen(true)}>
+          Apply now <ArrowRight size={14} />
+        </button>
+      </div>
+      {open && <CareerApplyModal role={roleKey} onClose={() => setOpen(false)} />}
+    </>
   )
 }
 
@@ -640,6 +864,23 @@ export default function Landing() {
         </div>
       </div>
 
+      {/* ── Careers ── */}
+      <div id="careers" className="section" style={{ background: 'var(--bg)' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 52 }}>
+            <div className="section-label">We're hiring</div>
+            <h2 className="section-title" style={{ marginBottom: 12 }}>Build the future of learning with us.</h2>
+            <p style={{ fontSize: 15, color: 'var(--text-2)', maxWidth: 500, margin: '0 auto' }}>
+              Two unpaid internship roles with real product impact, strong endorsements, and a certificate you can be proud of.
+            </p>
+          </div>
+          <div className="lp-careers-grid">
+            <RoleCard roleKey="gtm" />
+            <RoleCard roleKey="qa" />
+          </div>
+        </div>
+      </div>
+
       {/* ── Footer ── */}
       <footer className="lp-footer-full">
         <div className="lp-footer-top">
@@ -672,6 +913,7 @@ export default function Landing() {
               <div className="lp-footer-col-head">Company</div>
               <Link to="/feedback">Give feedback</Link>
               <a href="#contact">Contact</a>
+              <a href="#careers">Careers</a>
               <Link to="/register">Get started — it's free</Link>
             </div>
           </div>
