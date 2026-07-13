@@ -6,6 +6,7 @@ import {
   Star, Trophy, MapPin, Clock, CheckCircle2, ChevronRight,
 } from 'lucide-react'
 import '../components/UI.css'
+import SiteFooter from '../components/SiteFooter'
 
 const ROLES = {
   gtm: {
@@ -434,10 +435,7 @@ export default function Careers() {
         {validRole ? <ApplicationForm role={role} /> : <RoleListing />}
       </main>
 
-      <footer className="careers-footer">
-        <span>© 2026 Lumintora, Inc.</span>
-        <span>Questions? Email <a href="mailto:lumintoraai@gmail.com">lumintoraai@gmail.com</a></span>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

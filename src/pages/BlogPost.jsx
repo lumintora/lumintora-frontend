@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import Logo from '../components/Logo'
 import { ArrowLeft, ArrowRight, Clock, Calendar, Twitter, Linkedin, Link2, Check, Target, ScanSearch, GitBranch, Route, RefreshCw } from 'lucide-react'
 import '../components/UI.css'
+import SiteFooter from '../components/SiteFooter'
 
 /* ── Table of contents for each post ───────────────────────── */
 const TOC = {
@@ -190,14 +191,7 @@ export default function BlogPost() {
         </div>
       </main>
 
-      <footer className="lp-footer" style={{ marginTop: 0 }}>
-        <Logo size={22} fontSize={15} wordColor="var(--text-2)" />
-        <div className="lp-footer-links">
-          <Link to="/">Home</Link>
-          <Link to="/register">Get started</Link>
-        </div>
-        <span style={{ color: 'var(--text-3)', fontSize: 13 }}>© 2026 Lumintora</span>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
