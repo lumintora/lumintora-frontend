@@ -3,7 +3,4 @@ pages_build_output_dir = "dist"
 compatibility_date = "2024-09-23"
 
 [env.production.vars]
-# Set VITE_API_URL to your Render backend URL after deploying the backend.
-# e.g. https://lumintora-api.onrender.com
-# Leave empty to use relative /api URLs (when served from same origin).
-VITE_API_URL = ""
+VITE_API_URL = "https://lumintora-api.onrender.com"
