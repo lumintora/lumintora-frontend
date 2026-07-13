@@ -225,7 +225,7 @@ function ApplicationForm({ role }) {
       <div className="careers-success">
         <CheckCircle2 size={52} color="var(--green)" />
         <h2>Application received!</h2>
-        <p>Thanks for applying for the <strong>{r.title}</strong> role. We review every application personally and will get back to you within 5 business days at <strong>{info.email}</strong>.</p>
+        <p>Thanks for applying for the <strong>{r.title}</strong> role. We review every application personally and will get back to you within 5 business days.</p>
         <Link to="/careers" className="btn btn-secondary">← Back to openings</Link>
       </div>
     )
@@ -342,7 +342,7 @@ function ApplicationForm({ role }) {
             {status !== 'loading' && <ArrowRight size={16} />}
           </button>
           <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--text-3)', marginTop: 10 }}>
-            We'll reply to {info.email || 'your email'} within 5 business days.
+            We'll get back to you within 5 business days.
           </p>
         </div>
       </div>
