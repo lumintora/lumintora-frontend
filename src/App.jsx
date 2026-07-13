@@ -17,6 +17,7 @@ import ResumeGenerator from './pages/ResumeGenerator'
 import FeedbackForm from './pages/FeedbackForm'
 import BlogPost from './pages/BlogPost'
 import BlogIndex from './pages/BlogIndex'
+import Careers from './pages/Careers'
 import GoogleSuccess from './pages/GoogleSuccess'
 import GoogleComplete from './pages/GoogleComplete'
 import AiChat from './components/AiChat'
@@ -78,6 +79,8 @@ export default function App() {
           <Route path="/auth/complete" element={<GoogleComplete />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/blog" element={<BlogIndex />} />
+          <Route path="/careers/:role" element={<Careers />} />
+          <Route path="/careers" element={<Careers />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <ChatGate />
