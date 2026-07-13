@@ -1575,7 +1575,15 @@ a.profile-contact:hover svg { color: var(--accent); }
 }
 .beta-tag-mini { font-size: 11px; font-weight: 700; color: var(--accent-ink); background: var(--accent-soft); padding: 2px 9px; border-radius: 100px; }
 
-.landing-hero-shot { width: 100%; }
+.landing-hero-shot {
+  width: 100%;
+  transform: perspective(1400px) rotateY(-6deg) rotateX(2deg);
+  transform-origin: left center;
+  filter: drop-shadow(0 32px 64px rgba(24,20,38,0.28));
+}
+@media (max-width: 860px) {
+  .landing-hero-shot { transform: none; filter: drop-shadow(0 16px 40px rgba(24,20,38,0.2)); }
+}
 
 /* Browser-window mockups */
 .lp-shot {
@@ -1707,16 +1715,16 @@ a.profile-contact:hover svg { color: var(--accent); }
 .lp-db-new { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: #fff; background: var(--accent); padding: 5px 11px; border-radius: 100px; box-shadow: var(--shadow-accent); }
 .lp-db-ava { width: 26px; height: 26px; border-radius: 50%; background: var(--grad-deep); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 600; font-size: 12px; }
 
-.lp-db-main { display: flex; min-height: 340px; }
+.lp-db-main { display: flex; min-height: 480px; }
 .lp-db-side { width: 156px; flex-shrink: 0; border-right: 1px solid var(--border); padding: 16px 12px; display: flex; flex-direction: column; gap: 3px; background: rgba(255,255,255,0.4); }
 .lp-db-side-h { font-size: 9.5px; font-weight: 800; letter-spacing: 0.08em; color: var(--text-3); margin: 10px 0 4px 2px; }
 .lp-db-side-h:first-child { margin-top: 0; }
 .lp-db-side-i { display: flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 500; color: var(--text-2); padding: 7px 9px; border-radius: 8px; white-space: nowrap; }
 .lp-db-side-i.active { color: var(--accent-ink); background: var(--accent-soft); }
 
-.lp-db-content { flex: 1; padding: 20px 22px; min-width: 0; }
+.lp-db-content { flex: 1; padding: 24px 26px; min-width: 0; }
 .lp-db-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); }
-.lp-db-title { font-family: var(--font-display); font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-top: 4px; }
+.lp-db-title { font-family: var(--font-display); font-size: 24px; font-weight: 600; letter-spacing: -0.01em; margin-top: 4px; }
 
 .lp-db-practice { display: flex; align-items: center; gap: 13px; margin: 16px 0; padding: 13px 15px; background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
 .lp-db-practice-ico { width: 36px; height: 36px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
