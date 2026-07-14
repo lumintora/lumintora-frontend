@@ -20,6 +20,7 @@ import BlogIndex from './pages/BlogIndex'
 import Careers from './pages/Careers'
 import GoogleSuccess from './pages/GoogleSuccess'
 import GoogleComplete from './pages/GoogleComplete'
+import Verify from './pages/Verify'
 import AiChat from './components/AiChat'
 
 // The AI tutor only appears once the learner is signed in.
@@ -81,6 +82,7 @@ export default function App() {
           <Route path="/blog" element={<BlogIndex />} />
           <Route path="/careers/:role" element={<Careers />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/verify" element={<Verify />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <ChatGate />

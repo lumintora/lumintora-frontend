@@ -233,31 +233,40 @@ export default function Profile() {
 
 function CertificateModal({ path, user, onClose }) {
   const [qrDataUrl, setQrDataUrl] = useState('')
+  const [cert, setCert] = useState(null)
+  const [certError, setCertError] = useState(false)
 
-  const issued = new Date(path.updated_at || Date.now())
+  // Issue (or retrieve) the certificate from the backend on open
+  useEffect(() => {
+    api.issueCertificate(path.id)
+      .then(data => setCert(data))
+      .catch(() => setCertError(true))
+  }, [path.id])
+
+  const certId = cert?.cert_id || ''
+  const issued = cert?.issued_at ? new Date(cert.issued_at) : new Date()
   const issueDate = issued.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
   const issueYear = issued.getFullYear()
   const issueMonth = issued.getMonth() + 1
-
-  const certId = `LMT${issueYear}${String(issueMonth).padStart(2,'0')}-${path.id.replace(/-/g,'').slice(0,8).toUpperCase()}`
-  const verifyUrl = `https://lumintora.in/verify?cert=${certId}&course=${encodeURIComponent(path.title)}&name=${encodeURIComponent(user.name)}`
+  const verifyUrl = certId ? `https://lumintora.in/verify?cert=${certId}` : ''
 
   useEffect(() => {
+    if (!verifyUrl) return
     QRCode.toDataURL(verifyUrl, { width: 96, margin: 1, color: { dark: '#1e1b4b', light: '#ffffff' } })
       .then(setQrDataUrl)
       .catch(() => {})
   }, [verifyUrl])
 
-  const linkedInUrl = [
+  const linkedInUrl = certId ? [
     'https://www.linkedin.com/profile/add',
     '?startTask=CERTIFICATION_NAME',
     `&name=${encodeURIComponent(path.title)}`,
     `&organizationId=`,
     `&issueYear=${issueYear}`,
     `&issueMonth=${issueMonth}`,
-    `&certUrl=${encodeURIComponent('https://lumintora.in')}`,
+    `&certUrl=${encodeURIComponent(verifyUrl)}`,
     `&certId=${encodeURIComponent(certId)}`,
-  ].join('')
+  ].join('') : '#'
 
   const handlePrint = () => window.print()
 
@@ -268,61 +277,79 @@ function CertificateModal({ path, user, onClose }) {
         <div className="cert-actions no-print">
           <button className="btn btn-ghost btn-sm" onClick={onClose}><X size={15} /> Close</button>
           <div style={{ display: 'flex', gap: 10 }}>
-            <button className="btn btn-secondary btn-sm" onClick={handlePrint}>
+            <button className="btn btn-secondary btn-sm" onClick={handlePrint} disabled={!cert}>
               <Download size={14} /> Download / Print
             </button>
-            <a href={linkedInUrl} target="_blank" rel="noreferrer" className="btn btn-primary btn-sm">
+            <a href={linkedInUrl} target="_blank" rel="noreferrer"
+               className="btn btn-primary btn-sm"
+               style={!cert ? { pointerEvents: 'none', opacity: 0.5 } : {}}>
               <Linkedin size={14} /> Add to LinkedIn
             </a>
           </div>
         </div>
 
+        {/* Loading state */}
+        {!cert && !certError && (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '80px 0' }}>
+            <Spinner size={32} />
+          </div>
+        )}
+
+        {/* Error state */}
+        {certError && (
+          <div style={{ padding: '60px 40px', textAlign: 'center', color: 'var(--text-2)', fontSize: 15 }}>
+            Could not issue certificate. Make sure the course is fully completed.
+          </div>
+        )}
+
         {/* The certificate paper */}
-        <div className="cert-paper" id="certificate">
-          <div className="cert-corner cert-corner-tl" />
-          <div className="cert-corner cert-corner-tr" />
-          <div className="cert-corner cert-corner-bl" />
-          <div className="cert-corner cert-corner-br" />
+        {cert && (
+          <div className="cert-paper" id="certificate">
+            <div className="cert-corner cert-corner-tl" />
+            <div className="cert-corner cert-corner-tr" />
+            <div className="cert-corner cert-corner-bl" />
+            <div className="cert-corner cert-corner-br" />
 
-          <div className="cert-logo-row">
-            <Logo size={26} fontSize={17} wordColor="#1e1b4b" surface="transparent" />
+            <div className="cert-logo-row">
+              <Logo size={26} fontSize={17} wordColor="#1e1b4b" surface="transparent" />
+            </div>
+
+            <div className="cert-ribbon">Certificate of Completion</div>
+
+            <div className="cert-congrats">Congratulations!</div>
+
+            <div className="cert-name">{user.name}</div>
+
+            <div className="cert-body-text">has successfully completed the course</div>
+
+            <div className="cert-course-title">{path.title}</div>
+
+            <div className="cert-course-meta">{path.topic} &nbsp;·&nbsp; {path.level}</div>
+
+            <div className="cert-divider" />
+
+            <div className="cert-footer-row">
+              <div className="cert-footer-col">
+                <div className="cert-footer-label">Issued on</div>
+                <div className="cert-footer-value">{issueDate}</div>
+                <div className="cert-footer-label" style={{ marginTop: 8 }}>Certificate ID</div>
+                <div className="cert-footer-value cert-id-text">{certId}</div>
+              </div>
+              <div className="cert-seal-wrap">
+                <div className="cert-seal"><Award size={26} /></div>
+                <div className="cert-seal-label">Lumintora</div>
+              </div>
+              <div className="cert-footer-col cert-footer-right">
+                {qrDataUrl && (
+                  <>
+                    <img src={qrDataUrl} alt="Verify certificate" className="cert-qr" />
+                    <div className="cert-footer-label" style={{ marginTop: 6, textAlign: 'center' }}>Scan to verify</div>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
-
-          <div className="cert-ribbon">Certificate of Completion</div>
-
-          <div className="cert-congrats">Congratulations!</div>
-
-          <div className="cert-name">{user.name}</div>
-
-          <div className="cert-body-text">has successfully completed the course</div>
-
-          <div className="cert-course-title">{path.title}</div>
-
-          <div className="cert-course-meta">{path.topic} &nbsp;·&nbsp; {path.level}</div>
-
-          <div className="cert-divider" />
-
-          <div className="cert-footer-row">
-            <div className="cert-footer-col">
-              <div className="cert-footer-label">Issued on</div>
-              <div className="cert-footer-value">{issueDate}</div>
-              <div className="cert-footer-label" style={{ marginTop: 8 }}>Certificate ID</div>
-              <div className="cert-footer-value cert-id-text">{certId}</div>
-            </div>
-            <div className="cert-seal-wrap">
-              <div className="cert-seal"><Award size={26} /></div>
-              <div className="cert-seal-label">Lumintora</div>
-            </div>
-            <div className="cert-footer-col cert-footer-right">
-              {qrDataUrl && (
-                <>
-                  <img src={qrDataUrl} alt="Verify certificate" className="cert-qr" />
-                  <div className="cert-footer-label" style={{ marginTop: 6, textAlign: 'center' }}>Scan to verify</div>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   )

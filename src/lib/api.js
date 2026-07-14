@@ -64,5 +64,7 @@ export const api = {
   submitFeedback: (data) => request('/api/v1/feedback', { method: 'POST', body: JSON.stringify(data) }),
   submitContact: (data) => request('/api/v1/contact', { method: 'POST', body: JSON.stringify(data) }),
   chat: (message, history) => request('/api/v1/chat', { method: 'POST', body: JSON.stringify({ message, history }) }),
+  issueCertificate: (pathId) => request('/api/v1/certificates', { method: 'POST', body: JSON.stringify({ path_id: pathId }) }),
+  verifyCertificate: (certId) => request(`/api/v1/certificates/verify?cert=${encodeURIComponent(certId)}`),
   googleComplete: (data) => request('/api/v1/auth/google/complete', { method: 'POST', body: JSON.stringify(data) }),
 }
