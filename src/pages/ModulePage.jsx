@@ -110,7 +110,7 @@ function LessonView({ module, onComplete, completing }) {
 
   return (
     <div>
-      <div style={{ background: 'var(--bg-1)', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '36px 40px', marginBottom: 20, boxShadow: 'var(--shadow-sm)' }}>
+      <div className="course-content-card">
         {loadingContent ? <ContentSkeleton /> : <LessonContent text={content || module.description} />}
       </div>
 
@@ -176,7 +176,7 @@ function CodeView({ module, onComplete, completing }) {
 
   return (
     <div>
-      <div style={{ background: 'var(--bg-1)', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '28px 32px', marginBottom: 18, boxShadow: 'var(--shadow-sm)' }}>
+      <div className="course-content-card">
         {loadingContent ? <ContentSkeleton /> : <LessonContent text={content || module.description} />}
       </div>
 
@@ -260,9 +260,9 @@ function QuizView({ module, onComplete, completing }) {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {questions.map((q, qi) => (
-          <div key={q.id} style={{ background: 'var(--bg-1)', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: 24, boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ fontSize: 16, fontWeight: 600, marginBottom: 16 }}>
-              <span style={{ color: 'var(--accent-ink)', marginRight: 8 }}>Q{qi + 1}.</span>{q.question}
+          <div key={q.id} className="quiz-card">
+            <div className="quiz-question">
+              <span className="quiz-q-num">Q{qi + 1}</span>{q.question}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {q.options.map((opt, oi) => {
@@ -423,19 +423,17 @@ export default function ModulePage() {
 
         {/* ── Lesson content ── */}
         <main className="course-main">
-        <div style={{ marginBottom: 30, animation: 'fadeIn 0.4s ease' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
-            <div style={{ width: 40, height: 40, borderRadius: 'var(--radius-sm)', background: color + '16', color, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="course-module-hero">
+          <div className="course-module-meta">
+            <div className="course-module-type-icon" style={{ background: color + '18', color }}>
               <Icon size={19} />
             </div>
             <Badge color={badgeColor[module.type] || 'accent'}>{module.type}</Badge>
-            <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 13, color: 'var(--text-2)' }}>
-              <Clock size={13} /> {module.duration_minutes}m
-            </span>
+            <span className="course-module-chip"><Clock size={13} /> {module.duration_minutes}m</span>
             <XPBadge xp={module.xp_reward} />
           </div>
-          <h1 style={{ fontSize: 'clamp(28px, 4vw, 38px)', fontWeight: 600, marginBottom: 10, letterSpacing: '-0.02em' }}>{module.title}</h1>
-          <p style={{ color: 'var(--text-2)', fontSize: 16, lineHeight: 1.6 }}>{module.description}</p>
+          <h1 className="course-module-title">{module.title}</h1>
+          <p className="course-module-desc">{module.description}</p>
         </div>
 
         {completed && (
