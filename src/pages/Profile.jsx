@@ -4,12 +4,15 @@ import { useOnline } from '../hooks/useOnline'
 import { api } from '../lib/api'
 import Nav, { Sidebar } from '../components/Nav'
 import StreakHeatmap from '../components/StreakHeatmap'
+import Logo from '../components/Logo'
 import { Button, StatCard, Spinner } from '../components/UI'
 import {
   Zap, Flame, Trophy, CalendarDays, Mail, Phone, Globe, MapPin,
   Twitter, Github, Linkedin, Pencil, X, Check, Calendar, Link2, AtSign, Share2,
+  Award, Download, ExternalLink,
 } from 'lucide-react'
 import '../components/UI.css'
+import QRCode from 'qrcode'
 
 // Turn stored handles/values into real, clickable URLs.
 const linkFor = {
@@ -39,6 +42,8 @@ export default function Profile() {
   const [loadingAct, setLoadingAct] = useState(true)
   const [editing, setEditing] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [completedPaths, setCompletedPaths] = useState([])
+  const [certPath, setCertPath] = useState(null)
 
   const handleShare = () => {
     const handle = user.username ? `@${user.username}` : user.name
@@ -51,6 +56,9 @@ export default function Profile() {
 
   useEffect(() => {
     api.activity().then(setActivity).catch(() => setActivity(null)).finally(() => setLoadingAct(false))
+    api.listPaths()
+      .then(paths => setCompletedPaths((paths || []).filter(p => p.progress === 100 || (p.total_modules > 0 && p.completed_modules === p.total_modules))))
+      .catch(() => {})
   }, [])
 
   if (!user) return null
@@ -172,6 +180,34 @@ export default function Profile() {
               <StreakHeatmap days={activity?.days || []} />
             )}
           </section>
+
+          {/* ── Achievements ─────────────────────────────────────── */}
+          {completedPaths.length > 0 && (
+            <section className="card" style={{ marginTop: 24 }}>
+              <div className="profile-section-head">
+                <div>
+                  <h2 className="profile-section-title">Achievements</h2>
+                  <p className="profile-section-sub">
+                    {completedPaths.length} course{completedPaths.length !== 1 ? 's' : ''} completed
+                  </p>
+                </div>
+              </div>
+              <div className="cert-badges">
+                {completedPaths.map(path => (
+                  <div key={path.id} className="cert-badge-card">
+                    <div className="cert-badge-icon"><Award size={20} /></div>
+                    <div className="cert-badge-info">
+                      <div className="cert-badge-title">{path.title}</div>
+                      <div className="cert-badge-meta">{path.topic} · {path.level}</div>
+                    </div>
+                    <button className="btn btn-secondary btn-sm" onClick={() => setCertPath(path)}>
+                      View certificate
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
         </main>
       </div>
 
@@ -185,6 +221,109 @@ export default function Profile() {
           }}
         />
       )}
+
+      {certPath && (
+        <CertificateModal path={certPath} user={user} onClose={() => setCertPath(null)} />
+      )}
+    </div>
+  )
+}
+
+/* ── Certificate modal ───────────────────────────────────────── */
+
+function CertificateModal({ path, user, onClose }) {
+  const [qrDataUrl, setQrDataUrl] = useState('')
+
+  const issued = new Date(path.updated_at || Date.now())
+  const issueDate = issued.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+  const issueYear = issued.getFullYear()
+  const issueMonth = issued.getMonth() + 1
+
+  const certId = `LMT${issueYear}${String(issueMonth).padStart(2,'0')}-${path.id.replace(/-/g,'').slice(0,8).toUpperCase()}`
+  const verifyUrl = `https://lumintora.in/verify?cert=${certId}&course=${encodeURIComponent(path.title)}&name=${encodeURIComponent(user.name)}`
+
+  useEffect(() => {
+    QRCode.toDataURL(verifyUrl, { width: 96, margin: 1, color: { dark: '#1e1b4b', light: '#ffffff' } })
+      .then(setQrDataUrl)
+      .catch(() => {})
+  }, [verifyUrl])
+
+  const linkedInUrl = [
+    'https://www.linkedin.com/profile/add',
+    '?startTask=CERTIFICATION_NAME',
+    `&name=${encodeURIComponent(path.title)}`,
+    `&organizationId=`,
+    `&issueYear=${issueYear}`,
+    `&issueMonth=${issueMonth}`,
+    `&certUrl=${encodeURIComponent('https://lumintora.in')}`,
+    `&certId=${encodeURIComponent(certId)}`,
+  ].join('')
+
+  const handlePrint = () => window.print()
+
+  return (
+    <div className="modal-overlay cert-overlay" onMouseDown={e => e.target === e.currentTarget && onClose()}>
+      <div className="cert-modal-wrap">
+        {/* Action bar — hidden on print */}
+        <div className="cert-actions no-print">
+          <button className="btn btn-ghost btn-sm" onClick={onClose}><X size={15} /> Close</button>
+          <div style={{ display: 'flex', gap: 10 }}>
+            <button className="btn btn-secondary btn-sm" onClick={handlePrint}>
+              <Download size={14} /> Download / Print
+            </button>
+            <a href={linkedInUrl} target="_blank" rel="noreferrer" className="btn btn-primary btn-sm">
+              <Linkedin size={14} /> Add to LinkedIn
+            </a>
+          </div>
+        </div>
+
+        {/* The certificate paper */}
+        <div className="cert-paper" id="certificate">
+          <div className="cert-corner cert-corner-tl" />
+          <div className="cert-corner cert-corner-tr" />
+          <div className="cert-corner cert-corner-bl" />
+          <div className="cert-corner cert-corner-br" />
+
+          <div className="cert-logo-row">
+            <Logo size={26} fontSize={17} wordColor="#1e1b4b" surface="transparent" />
+          </div>
+
+          <div className="cert-ribbon">Certificate of Completion</div>
+
+          <div className="cert-congrats">Congratulations!</div>
+
+          <div className="cert-name">{user.name}</div>
+
+          <div className="cert-body-text">has successfully completed the course</div>
+
+          <div className="cert-course-title">{path.title}</div>
+
+          <div className="cert-course-meta">{path.topic} &nbsp;·&nbsp; {path.level}</div>
+
+          <div className="cert-divider" />
+
+          <div className="cert-footer-row">
+            <div className="cert-footer-col">
+              <div className="cert-footer-label">Issued on</div>
+              <div className="cert-footer-value">{issueDate}</div>
+              <div className="cert-footer-label" style={{ marginTop: 8 }}>Certificate ID</div>
+              <div className="cert-footer-value cert-id-text">{certId}</div>
+            </div>
+            <div className="cert-seal-wrap">
+              <div className="cert-seal"><Award size={26} /></div>
+              <div className="cert-seal-label">Lumintora</div>
+            </div>
+            <div className="cert-footer-col cert-footer-right">
+              {qrDataUrl && (
+                <>
+                  <img src={qrDataUrl} alt="Verify certificate" className="cert-qr" />
+                  <div className="cert-footer-label" style={{ marginTop: 6, textAlign: 'center' }}>Scan to verify</div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
