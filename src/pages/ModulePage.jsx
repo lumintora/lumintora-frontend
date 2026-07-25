@@ -150,7 +150,7 @@ function LessonView({ module, onComplete, completing }) {
       </div>
 
       <div style={{ marginTop: 28, display: 'flex', justifyContent: 'flex-end' }}>
-        <Button onClick={onComplete} loading={completing} size="lg">
+        <Button onClick={onComplete} loading={completing} disabled={loadingContent} size="lg">
           Mark complete <Check size={16} />
         </Button>
       </div>
@@ -183,7 +183,7 @@ function CodeView({ module, onComplete, completing }) {
       <CodeRunner problem={module.title} initialLanguage="javascript" />
 
       <div style={{ marginTop: 24, display: 'flex', justifyContent: 'flex-end' }}>
-        <Button onClick={onComplete} loading={completing} size="lg">
+        <Button onClick={onComplete} loading={completing} disabled={loadingContent} size="lg">
           Submit & complete <Check size={16} />
         </Button>
       </div>
