@@ -423,6 +423,21 @@ export default function ModulePage() {
 
         {/* ── Lesson content ── */}
         <main className="course-main">
+        {/* Mobile-only path bar — the sidebar is hidden below 900px */}
+        {pathData && (
+          <div className="course-mobile-bar">
+            <Link to={`/paths/${module.path_id}`} className="course-back">
+              <ArrowLeft size={14} /> Back to path
+            </Link>
+            <div className="course-mobile-progress">
+              <div className="course-mobile-progress-meta">
+                <span className="course-mobile-progress-title">{pathData.title}</span>
+                <span>{pathData.completed_modules}/{pathData.total_modules} · {pathData.progress}%</span>
+              </div>
+              <Progress value={pathData.progress} />
+            </div>
+          </div>
+        )}
         <div className="course-module-hero">
           <div className="course-module-meta">
             <div className="course-module-type-icon" style={{ background: color + '18', color }}>
@@ -438,9 +453,9 @@ export default function ModulePage() {
 
         {completed && (
           <div style={{ marginBottom: 24 }}>
-            <div style={{ background: 'var(--green-soft)', border: '1px solid rgba(15,157,107,0.3)', borderRadius: 'var(--radius)', padding: '18px 20px', display: 'flex', alignItems: 'center', gap: 14 }}>
+            <div style={{ background: 'var(--green-soft)', border: '1px solid rgba(15,157,107,0.3)', borderRadius: 'var(--radius)', padding: '18px 20px', display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
               <CheckCircle2 size={26} color="var(--green)" />
-              <div>
+              <div style={{ minWidth: 0 }}>
                 <div style={{ fontWeight: 600, color: 'var(--green)' }}>Module completed</div>
                 <div style={{ fontSize: 13, color: 'var(--text-2)' }}>You earned +{xpEarned} XP. Keep going!</div>
               </div>
