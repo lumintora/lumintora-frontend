@@ -984,7 +984,8 @@
 .adapt-fb-btn:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-ink); transform: translateY(-1px); }
 .adapt-fb-btn svg { color: var(--accent); }
 
-.adapt-result { display: flex; align-items: center; gap: 14px; margin-top: 14px; padding: 16px 18px; border-radius: var(--radius); font-size: 14px; border: 1px solid var(--border); background: var(--bg-1); box-shadow: var(--shadow-sm); }
+.adapt-result { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 14px; padding: 16px 18px; border-radius: var(--radius); font-size: 14px; border: 1px solid var(--border); background: var(--bg-1); box-shadow: var(--shadow-sm); }
+.adapt-result .btn { flex-shrink: 0; white-space: nowrap; margin-left: auto; }
 .adapt-result-working { color: var(--text-2); }
 .adapt-ontrack { color: var(--text-2); }
 .adapt-up { border-color: var(--accent-border); background: var(--accent-soft); }

@@ -488,7 +488,7 @@ export default function ModulePage() {
                   <div className="adapt-result-icon">
                     {adaptResult.direction === 'advance' ? <TrendingUp size={20} /> : <TrendingDown size={20} />}
                   </div>
-                  <div style={{ flex: 1 }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
                     <div className="adapt-result-title">
                       {adaptResult.direction === 'advance' ? 'Leveling you up' : 'Added some support'}
                       <span className="adapt-badge"><Wand2 size={11} /> Adaptive</span>
