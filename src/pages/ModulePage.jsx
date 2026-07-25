@@ -5,6 +5,7 @@ import Nav from '../components/Nav'
 import { Button, Badge, Spinner, XPBadge, Progress } from '../components/UI'
 import LessonContent from '../components/LessonContent'
 import CodeRunner from '../components/CodeRunner'
+import ReadAloud from '../components/ReadAloud'
 import {
   BookOpen, Code2, Brain, CheckSquare, ArrowLeft, ArrowRight,
   Sparkles, Check, X, Clock, Zap, Play, RotateCcw, CheckCircle2,
@@ -110,6 +111,11 @@ function LessonView({ module, onComplete, completing }) {
 
   return (
     <div>
+      {!loadingContent && (
+        <div className="lesson-toolbar">
+          <ReadAloud text={content || module.description} />
+        </div>
+      )}
       <div className="course-content-card">
         {loadingContent ? <ContentSkeleton /> : <LessonContent text={content || module.description} />}
       </div>
@@ -176,6 +182,11 @@ function CodeView({ module, onComplete, completing }) {
 
   return (
     <div>
+      {!loadingContent && (
+        <div className="lesson-toolbar">
+          <ReadAloud text={content || module.description} />
+        </div>
+      )}
       <div className="course-content-card">
         {loadingContent ? <ContentSkeleton /> : <LessonContent text={content || module.description} />}
       </div>

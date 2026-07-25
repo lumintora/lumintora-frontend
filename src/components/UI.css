@@ -1456,6 +1456,20 @@
   color: var(--text-2); font-size: 16px; line-height: 1.65; margin: 0;
 }
 
+/* ── Read-aloud toolbar (above the lesson content) ── */
+.lesson-toolbar { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+.read-aloud { display: inline-flex; gap: 8px; }
+.read-aloud-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-body); font-size: 13px; font-weight: 600;
+  color: var(--text-2); background: var(--bg-1);
+  border: 1px solid var(--border-2); border-radius: 100px;
+  padding: 6px 14px; cursor: pointer; transition: all var(--transition);
+}
+.read-aloud-btn:hover { color: var(--accent-ink); border-color: var(--accent-border); background: var(--accent-soft); }
+.read-aloud-btn svg { flex-shrink: 0; }
+.read-aloud-stop:hover { color: var(--rose); border-color: rgba(229,72,77,0.4); background: var(--rose-soft); }
+
 /* ── Lesson / code content card ── */
 .course-content-card {
   background: var(--bg-1);
