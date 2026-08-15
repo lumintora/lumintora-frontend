@@ -40,6 +40,7 @@ export default function SiteFooter() {
           </div>
         </div>
       </div>
+      <div className="lp-footer-word" aria-hidden="true">Lumintora</div>
       <div className="lp-footer-bottom">
         <span>© 2026 Lumintora, Inc. All rights reserved.</span>
         <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
