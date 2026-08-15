@@ -6,6 +6,17 @@ import SiteFooter from '../components/SiteFooter'
 
 const POSTS = [
   {
+    slug: 'ai-changing-how-we-learn',
+    tag: 'AI & LEARNING',
+    title: 'AI Is Changing How We Learn: What the Next Generation of Learning Looks Like',
+    excerpt: "For decades, learning meant find a course, watch, quiz, repeat. But the hard part was never access to content — it was knowing what to learn next. Here's how AI is quietly turning courses into learning systems that start with you.",
+    readTime: '9 min read',
+    date: 'August 15, 2026',
+    author: 'Jathin',
+    tags: ['AI & Learning', 'Adaptive Systems', 'AI Tutors', 'Learning Systems'],
+    gradient: 'linear-gradient(155deg, #06231d 0%, #0c4a3a 55%, #03150f 100%)',
+  },
+  {
     slug: 'future-of-learning',
     tag: 'EDUCATION',
     title: 'The Future of Learning: Why One-Size-Fits-All Education No Longer Works',

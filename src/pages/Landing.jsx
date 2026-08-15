@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../lib/api'
 import Logo from '../components/Logo'
@@ -93,6 +93,17 @@ const FAQS = [
 ]
 
 const BLOG_POSTS = [
+  {
+    slug: 'ai-changing-how-we-learn',
+    tag: 'AI & LEARNING',
+    title: 'AI Is Changing How We Learn: What the Next Generation of Learning Looks Like',
+    excerpt: "For decades, learning meant find a course, watch, quiz, repeat. But the hard part was never access to content — it was knowing what to learn next. Here's how AI is quietly turning courses into learning systems that start with you.",
+    readTime: '9 min read',
+    date: 'August 15, 2026',
+    author: 'Jathin',
+    tags: ['AI & Learning', 'Adaptive Systems', 'AI Tutors', 'Learning Systems'],
+    gradient: 'linear-gradient(155deg, #06231d 0%, #0c4a3a 55%, #03150f 100%)',
+  },
   {
     slug: 'future-of-learning',
     tag: 'EDUCATION',
@@ -225,6 +236,156 @@ function DashboardShot() {
         </div>
       </div>
     </Shot>
+  )
+}
+
+/* ── Scroll-showcase mockups (each is a swappable dashboard screen) ── */
+
+function PathVisual() {
+  const mods = [
+    ['Python Basics', 'LESSON', 'done'],
+    ['Variables & Data Types', 'LESSON', 'done'],
+    ['Loops — hands-on', 'CODE', 'active'],
+    ['Functions & Scope', 'LESSON', ''],
+    ['Checkpoint Quiz', 'QUIZ', ''],
+  ]
+  return (
+    <Shot url="lumintora.in/paths/new" className="lp-shot-hero">
+      <div className="lp-gen-bar">
+        <Zap size={15} color="var(--accent)" />
+        <span className="lp-gen-text">Become a Python developer</span>
+        <span className="lp-gen-btn"><Plus size={12} /> Generate</span>
+      </div>
+      <div className="lp-gen-meta"><span className="lp-spark"><Zap size={12} /> AI generated</span> · 8 modules · ~20h</div>
+      <div className="lp-path-card">
+        <div className="lp-path-title">Python Developer Path</div>
+        <div className="lp-db-path-progrow"><span>Progress</span><span>35%</span></div>
+        <div className="lp-path-prog"><div className="lp-path-prog-fill" style={{ width: '35%' }} /></div>
+        <div className="lp-path-modules">
+          {mods.map(([t, type, st]) => (
+            <div key={t} className={`lp-mod ${st === 'done' ? 'done' : ''}`}>
+              <span className="lp-mod-ico" style={{
+                background: st === 'done' ? 'var(--green-soft)' : st === 'active' ? 'var(--accent-soft)' : 'var(--bg-3)',
+                color: st === 'done' ? 'var(--green)' : st === 'active' ? 'var(--accent)' : 'var(--text-3)',
+              }}>
+                {st === 'done' ? <Check size={12} /> : <span className="lp-mod-dot" style={{ background: 'currentColor' }} />}
+              </span>
+              <span className="lp-mod-title">{t}</span>
+              <span className="lp-mod-type" style={{ color: st === 'active' ? 'var(--accent-ink)' : 'var(--text-3)' }}>{type}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Shot>
+  )
+}
+
+function TutorVisual() {
+  return (
+    <Shot url="lumintora.in/learn" className="lp-shot-hero">
+      <div className="lp-chat">
+        <div className="lp-msg user">What does “Big-O” actually mean?</div>
+        <div className="lp-msg ai">
+          <span className="lp-ai-ava"><Bot size={12} /></span>
+          <span>Big-O describes how an algorithm’s work grows as the input grows — a ceiling on time or space. <strong>O(n)</strong> scales linearly with the data; <strong>O(1)</strong> stays constant no matter the size.</span>
+        </div>
+        <div className="lp-msg user">Give me a one-line example.</div>
+        <div className="lp-msg ai">
+          <span className="lp-ai-ava"><Bot size={12} /></span>
+          <span>Looking up <code>dict[key]</code> in Python is ~O(1); scanning a list with <code>in</code> is O(n).</span>
+        </div>
+        <div className="lp-chat-input">Ask Lumi anything… <span className="lp-send"><ArrowRight size={14} /></span></div>
+      </div>
+    </Shot>
+  )
+}
+
+function StreakVisual() {
+  return (
+    <Shot url="lumintora.in/profile" className="lp-shot-hero">
+      <div className="lp-streak-row">
+        <div className="lp-streak-big">
+          <span style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(248,113,113,0.14)', color: '#f87171', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Flame size={22} />
+          </span>
+          <div><div className="lp-streak-v">12</div><div className="lp-streak-l">Day streak</div></div>
+        </div>
+        <div className="lp-streak-mini">
+          <div><span className="lp-streak-mv">1,240</span><span className="lp-streak-ml">Total XP</span></div>
+          <div><span className="lp-streak-mv">28</span><span className="lp-streak-ml">Longest</span></div>
+        </div>
+      </div>
+      <MiniHeatmap />
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--text-3)', marginTop: 10 }}>
+        <span>Less</span><span>371 days of activity</span><span>More</span>
+      </div>
+    </Shot>
+  )
+}
+
+const SHOWCASE = [
+  { id: 'dashboard', icon: LayoutDashboard, title: 'Your whole journey on one screen', desc: 'XP, streaks, active paths and exactly what to do next — the moment you sign in.', visual: 'dashboard' },
+  { id: 'path', icon: Route, title: 'A path built around your goal', desc: 'Tell Lumintora what you want to learn. It generates lessons, quizzes and real coding problems — then reshapes them as you progress.', visual: 'path' },
+  { id: 'tutor', icon: Bot, title: 'An AI tutor, right where you are', desc: 'Stuck on a line? Ask Lumi for a clear, concise explanation without ever leaving your lesson.', visual: 'tutor' },
+  { id: 'streak', icon: Flame, title: 'Momentum you can actually see', desc: 'A GitHub-style contribution heatmap, current and longest streaks, and XP that turns effort into visible progress.', visual: 'streak' },
+]
+
+function ShowcaseVisual({ kind }) {
+  if (kind === 'path') return <PathVisual />
+  if (kind === 'tutor') return <TutorVisual />
+  if (kind === 'streak') return <StreakVisual />
+  return <DashboardShot />
+}
+
+function ScrollShowcase() {
+  const [active, setActive] = useState(0)
+  const stepRefs = useRef([])
+
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(Number(e.target.dataset.i))
+        })
+      },
+      { rootMargin: '-48% 0px -48% 0px', threshold: 0 },
+    )
+    stepRefs.current.forEach((el) => el && io.observe(el))
+    return () => io.disconnect()
+  }, [])
+
+  return (
+    <div className="section lp-sc-section" style={{ background: 'var(--bg-1)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto 12px', textAlign: 'center' }}>
+        <div className="section-label">A closer look</div>
+        <h2 className="section-title">One platform. Every step of the way.</h2>
+        <p className="section-sub" style={{ margin: '0 auto' }}>Scroll through what you actually get — the screens update as you go.</p>
+      </div>
+
+      <div className="lp-sc">
+        <div className="lp-sc-steps">
+          {SHOWCASE.map((s, i) => (
+            <div
+              key={s.id}
+              ref={(el) => (stepRefs.current[i] = el)}
+              data-i={i}
+              className={`lp-sc-step ${active === i ? 'active' : ''}`}
+            >
+              <div className="lp-sc-step-ico"><s.icon size={18} /></div>
+              <h3 className="lp-sc-step-title">{s.title}</h3>
+              <p className="lp-sc-step-desc">{s.desc}</p>
+              <div className="lp-sc-inline"><ShowcaseVisual kind={s.visual} /></div>
+            </div>
+          ))}
+        </div>
+
+        <div className="lp-sc-visual-wrap">
+          <div className="lp-sc-visual">
+            <div className="lp-sc-pane" key={active}><ShowcaseVisual kind={SHOWCASE[active].visual} /></div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -386,17 +547,27 @@ export default function Landing() {
   const row2 = [...topics.slice(5), ...topics.slice(0, 5), ...topics.slice(5), ...topics.slice(0, 5)]
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="lp-page" style={{ position: 'relative' }}>
+
+      {/* ── Top announcement scroller ── */}
+      <div className="lp-announce">
+        <div className="lp-announce-track">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <span key={i} className="lp-announce-item">
+              🇮🇳&nbsp; Happy Independence Day
+              <span className="lp-announce-sep">✦</span>
+              Freedom to learn — your way, free all through beta
+              <span className="lp-announce-sep">✦</span>
+            </span>
+          ))}
+        </div>
+      </div>
 
       {/* ── Header ── */}
-      <header style={{
-        position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '22px clamp(20px, 5vw, 56px)',
-      }}>
+      <header className="lp-header">
         <Logo size={30} />
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <Link to="/blog" className="btn btn-ghost btn-md">Blog</Link>
+        <div className="lp-header-actions">
+          <Link to="/blog" className="btn btn-ghost btn-md lp-hide-sm">Blog</Link>
           <Link to="/login" className="btn btn-ghost btn-md">Sign in</Link>
           <Link to="/register" className="btn btn-primary btn-md">Get started <ArrowRight size={15} /></Link>
         </div>
@@ -436,6 +607,34 @@ export default function Landing() {
                 </span>
               ))}
             </div>
+
+            {/* ── Hero promo banners ── */}
+            <div className="lp-hero-banners animate-fade" style={{ animationDelay: '0.22s' }}>
+              <Link to="/register" className="lp-hero-banner lp-hb-fest">
+                <span className="lp-hb-emoji">🇮🇳</span>
+                <div className="lp-hb-text">
+                  <strong>Independence Day offer</strong>
+                  <span>Every feature unlocked — free, all beta long.</span>
+                </div>
+                <ArrowRight size={15} className="lp-hb-arrow" />
+              </Link>
+              <Link to="/resume" className="lp-hero-banner">
+                <span className="lp-hb-ico" style={{ color: 'var(--accent-ink)', background: 'var(--accent-soft)' }}><FileText size={16} /></span>
+                <div className="lp-hb-text">
+                  <strong>New — AI Resume Builder</strong>
+                  <span>A polished, print-ready resume in seconds.</span>
+                </div>
+                <ArrowRight size={15} className="lp-hb-arrow" />
+              </Link>
+              <Link to="/leaderboard" className="lp-hero-banner">
+                <span className="lp-hb-ico" style={{ color: '#c2790a', background: 'var(--amber-soft)' }}><Trophy size={16} /></span>
+                <div className="lp-hb-text">
+                  <strong>5,000+ learners onboarded</strong>
+                  <span>Climb the leaderboard and keep your streak alive.</span>
+                </div>
+                <ArrowRight size={15} className="lp-hb-arrow" />
+              </Link>
+            </div>
           </div>
 
           <div className="landing-hero-shot animate-fade" style={{ animationDelay: '0.22s' }}>
@@ -443,6 +642,9 @@ export default function Landing() {
           </div>
         </div>
       </div>
+
+      {/* ── Scroll showcase (pinned visual changes with content) ── */}
+      <ScrollShowcase />
 
       {/* ── How it works ── */}
       <div className="section">
