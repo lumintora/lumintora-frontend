@@ -3,12 +3,92 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import Logo from '../components/Logo'
 import {
   ArrowRight, ArrowLeft, Check, Users, Bug, Award, FileText,
-  Star, Trophy, MapPin, Clock, CheckCircle2, ChevronRight,
+  Star, Trophy, MapPin, Clock, CheckCircle2, ChevronRight, GraduationCap, Sparkles, Bot,
 } from 'lucide-react'
 import '../components/UI.css'
 import SiteFooter from '../components/SiteFooter'
 
 const ROLES = {
+  'ai-fellowship': {
+    slug: 'ai-fellowship',
+    title: 'AI Fellowship',
+    team: 'Fellowship',
+    color: '#059669',
+    bg: '#05966918',
+    icon: GraduationCap,
+    badge: 'Applications open',
+    location: 'Remote',
+    commitment: 'Fellowship · 8 weeks',
+    tagline: 'An 8-week hands-on fellowship building real AI products with our team.',
+    about: `The Lumintora AI Fellowship is an intensive, project-based programme for people who want to build with AI, not just read about it. Over 8 weeks, you'll work alongside our founding team on real features that ship to real learners — from LLM-powered tutoring to adaptive learning systems. It's remote, hands-on, and completely free. Cohort 01 applications are open now.`,
+    responsibilities: [
+      'Build production features using LLMs, retrieval, and agents',
+      'Ship real improvements to Lumintora that reach live users',
+      'Work through weekly milestones with direct feedback from the founders',
+      'Prototype, measure, and iterate on adaptive-learning ideas',
+      'Present your work at the end-of-cohort demo day',
+      'Collaborate in code reviews and design discussions with the core team',
+    ],
+    requirements: [
+      'Comfortable writing code in at least one language (Python or JavaScript preferred)',
+      'Genuine curiosity about AI, LLMs, and how people learn',
+      'Able to commit ~10–15 focused hours per week for 8 weeks',
+      'A self-starter who ships — you finish what you begin',
+      'No prior AI/ML job experience required — just proof you can build',
+    ],
+    benefits: [
+      { icon: GraduationCap, text: 'AI Fellowship certificate (official, signed)' },
+      { icon: FileText, text: 'Letter of Recommendation from the founders' },
+      { icon: Star, text: 'LinkedIn endorsement from the Lumintora team' },
+      { icon: Bot, text: 'Hands-on experience shipping real AI features' },
+      { icon: Users, text: 'Direct mentorship from the founding team' },
+      { icon: CheckCircle2, text: 'Your work ships to real learners' },
+    ],
+    questions: [
+      {
+        key: 'intro',
+        label: '1. Tell us about yourself.',
+        placeholder: 'Who are you, what do you study or work on, and why do you want to join the Lumintora AI Fellowship specifically?',
+        rows: 4,
+      },
+      {
+        key: 'build',
+        label: '2. Show us something you\'ve built.',
+        placeholder: 'Share links to a project, repo, or product you made — anything from a side project to a hackathon build. Tell us what it does and what your role was.',
+        rows: 4,
+      },
+      {
+        key: 'ai_experience',
+        label: '3. What have you built or explored with AI so far?',
+        placeholder: 'LLM apps, RAG, agents, fine-tuning, prompt engineering, or even just experiments. If you\'re new to AI, tell us what you\'re most excited to learn and why.',
+        rows: 4,
+      },
+      {
+        key: 'idea',
+        label: '4. If you joined the fellowship, what AI feature would you want to build for Lumintora?',
+        placeholder: 'Give us a concrete idea — what it does, why it helps learners, and roughly how you\'d approach building it.',
+        rows: 5,
+      },
+      {
+        key: 'stack',
+        label: '5. What languages, frameworks, and tools are you most comfortable with?',
+        placeholder: 'List your stack honestly — what you\'re strong in, what you\'re still learning.',
+        rows: 3,
+      },
+      {
+        key: 'commitment',
+        label: '6. Can you commit ~10–15 hours per week for 8 weeks? What does your schedule look like?',
+        placeholder: 'Be honest about your availability, other commitments, and how you\'d fit the fellowship in.',
+        rows: 3,
+      },
+      {
+        key: 'why',
+        label: '7. Why the Lumintora AI Fellowship, and why now?',
+        placeholder: 'What specifically about building AI-powered learning excites you? What do you want to walk away with?',
+        rows: 4,
+      },
+    ],
+  },
   gtm: {
     slug: 'gtm',
     title: 'GTM Intern',
@@ -239,8 +319,8 @@ function ApplicationForm({ role }) {
         <div className="careers-job-brief-icon" style={{ background: r.bg, color: r.color }}><r.icon size={28} /></div>
         <h2 className="careers-job-brief-title">{r.title}</h2>
         <div className="careers-job-meta">
-          <span><MapPin size={13} /> Remote · India</span>
-          <span><Clock size={13} /> Unpaid internship</span>
+          <span><MapPin size={13} /> {r.location || 'Remote · India'}</span>
+          <span><Clock size={13} /> {r.commitment || 'Unpaid internship'}</span>
         </div>
         <p className="careers-job-brief-about">{r.about}</p>
 
@@ -357,8 +437,8 @@ function RoleListing() {
         <div className="section-label">We're hiring</div>
         <h1 className="careers-hero-title">Build the future of<br />learning with us.</h1>
         <p className="careers-hero-sub">
-          Two unpaid internship roles with real product impact — certificates, letters of recommendation,
-          and direct mentorship from our founding team.
+          An AI Fellowship and internship roles with real product impact — certificates, letters of
+          recommendation, and direct mentorship from our founding team.
         </p>
       </div>
 
@@ -376,7 +456,7 @@ function RoleListing() {
                   <span>·</span>
                   <span><MapPin size={11} /> Remote</span>
                   <span>·</span>
-                  <span>Unpaid</span>
+                  <span style={r.badge ? { color: r.color, fontWeight: 600 } : undefined}>{r.badge || 'Unpaid'}</span>
                 </div>
                 <p className="careers-role-tagline">{r.tagline}</p>
               </div>

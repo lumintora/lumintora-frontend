@@ -334,17 +334,58 @@ function StreakVisual() {
   )
 }
 
+function FellowshipVisual() {
+  const stats = [
+    ['8 wks', 'Duration'],
+    ['Remote', 'Format'],
+    ['20', 'Seats'],
+    ['Free', 'Tuition'],
+  ]
+  const tracks = [
+    ['Applied AI Engineering', 'Build with LLMs, RAG and agents'],
+    ['Product & Design', 'Ship real features end-to-end'],
+    ['Learning Science', 'Design adaptive learning systems'],
+  ]
+  return (
+    <Shot url="lumintora.in/careers/ai-fellowship" className="lp-shot-hero">
+      <div className="lp-fel-head">
+        <div>
+          <div className="lp-fel-kicker">LUMINTORA · COHORT 01</div>
+          <div className="lp-fel-title">AI Fellowship</div>
+        </div>
+        <span className="lp-fel-open"><span className="lp-fel-dot" /> Applications open</span>
+      </div>
+      <div className="lp-fel-stats">
+        {stats.map(([v, l]) => (
+          <div key={l} className="lp-fel-stat"><div className="lp-fel-sv">{v}</div><div className="lp-fel-sl">{l}</div></div>
+        ))}
+      </div>
+      <div className="lp-fel-tracks">
+        {tracks.map(([t, d]) => (
+          <div key={t} className="lp-fel-track">
+            <span className="lp-fel-track-ico"><Sparkles size={13} /></span>
+            <div><div className="lp-fel-track-t">{t}</div><div className="lp-fel-track-d">{d}</div></div>
+          </div>
+        ))}
+      </div>
+      <div className="lp-fel-cta">Apply for Cohort 01 <ArrowRight size={13} /></div>
+    </Shot>
+  )
+}
+
 const SHOWCASE = [
   { id: 'dashboard', icon: LayoutDashboard, title: 'Your whole journey on one screen', desc: 'XP, streaks, active paths and exactly what to do next — the moment you sign in.', visual: 'dashboard' },
   { id: 'path', icon: Route, title: 'A path built around your goal', desc: 'Tell Lumintora what you want to learn. It generates lessons, quizzes and real coding problems — then reshapes them as you progress.', visual: 'path' },
   { id: 'tutor', icon: Bot, title: 'An AI tutor, right where you are', desc: 'Stuck on a line? Ask Lumi for a clear, concise explanation without ever leaving your lesson.', visual: 'tutor' },
   { id: 'streak', icon: Flame, title: 'Momentum you can actually see', desc: 'A GitHub-style contribution heatmap, current and longest streaks, and XP that turns effort into visible progress.', visual: 'streak' },
+  { id: 'fellowship', icon: GraduationCap, title: 'AI Fellowship — applications open', desc: 'Join Cohort 01 and build real AI products with our team. Remote, hands-on and free — applications are open now.', visual: 'fellowship' },
 ]
 
 function ShowcaseVisual({ kind }) {
   if (kind === 'path') return <PathVisual />
   if (kind === 'tutor') return <TutorVisual />
   if (kind === 'streak') return <StreakVisual />
+  if (kind === 'fellowship') return <FellowshipVisual />
   return <DashboardShot />
 }
 
@@ -634,7 +675,6 @@ export default function Landing() {
           <NavMenu label="Product" items={NAV_PRODUCT} />
           <NavMenu label="Resources" items={NAV_RESOURCES} />
           <a href="/#features" className="lp-nav-link">Features</a>
-          <a href="/#faq" className="lp-nav-link">FAQ</a>
         </nav>
 
         <div className="lp-header-actions">
@@ -718,11 +758,11 @@ export default function Landing() {
 
             {/* ── Hero promo banners ── */}
             <div className="lp-hero-banners animate-fade" style={{ animationDelay: '0.22s' }}>
-              <Link to="/register" className="lp-hero-banner">
-                <span className="lp-hb-ico" style={{ color: 'var(--green)', background: 'var(--green-soft, rgba(34,197,94,0.12))' }}><Sparkles size={16} /></span>
+              <Link to="/careers/ai-fellowship" className="lp-hero-banner lp-hb-fellow">
+                <span className="lp-hb-ico" style={{ color: 'var(--green)', background: 'var(--green-soft, rgba(16,150,105,0.14))' }}><GraduationCap size={16} /></span>
                 <div className="lp-hb-text">
-                  <strong>Every feature unlocked</strong>
-                  <span>No paywalls, no credit card — completely free.</span>
+                  <strong>AI Fellowship — applications open</strong>
+                  <span>Build real AI products with our team. Apply for Cohort 01.</span>
                 </div>
                 <ArrowRight size={15} className="lp-hb-arrow" />
               </Link>

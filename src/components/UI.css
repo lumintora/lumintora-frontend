@@ -396,6 +396,34 @@
   .lp-nav-burger { display: inline-flex; }
 }
 
+/* ── AI Fellowship showcase visual ── */
+.lp-fel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 4px 2px 14px; }
+.lp-fel-kicker { font-size: 10px; font-weight: 700; letter-spacing: .1em; color: var(--text-3); margin-bottom: 5px; }
+.lp-fel-title { font-family: var(--font-display, inherit); font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); }
+.lp-fel-open {
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  font-size: 11.5px; font-weight: 600; color: var(--green);
+  background: rgba(16,150,105,0.12); border: 1px solid rgba(16,150,105,0.32);
+  padding: 5px 10px; border-radius: 100px;
+}
+.lp-fel-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: felPulse 2s infinite; }
+@keyframes felPulse {
+  0% { box-shadow: 0 0 0 0 rgba(16,150,105,0.45); }
+  70% { box-shadow: 0 0 0 7px rgba(16,150,105,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,150,105,0); }
+}
+.lp-fel-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+.lp-fel-stat { background: var(--bg-2, rgba(120,110,255,0.04)); border: 1px solid var(--border); border-radius: 11px; padding: 10px 8px; text-align: center; }
+.lp-fel-sv { font-size: 16px; font-weight: 700; color: var(--text); }
+.lp-fel-sl { font-size: 10.5px; color: var(--text-3); margin-top: 2px; }
+.lp-fel-tracks { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.lp-fel-track { display: flex; align-items: center; gap: 10px; background: var(--bg-2, rgba(120,110,255,0.04)); border: 1px solid var(--border); border-radius: 11px; padding: 10px 12px; }
+.lp-fel-track-ico { width: 26px; height: 26px; flex-shrink: 0; border-radius: 8px; display: grid; place-items: center; color: var(--accent-ink); background: var(--accent-soft); }
+.lp-fel-track-t { font-size: 13px; font-weight: 600; color: var(--text); }
+.lp-fel-track-d { font-size: 11.5px; color: var(--text-3); }
+.lp-fel-cta { display: flex; align-items: center; justify-content: center; gap: 7px; background: var(--accent); color: #fff; font-size: 13px; font-weight: 600; padding: 11px; border-radius: 11px; }
+.lp-hb-fellow { border-color: rgba(16,150,105,0.28); }
+
 /* ── Top announcement scroller (Independence Day) ── */
 .lp-announce {
   position: relative; z-index: 20; height: 38px; overflow: hidden;
