@@ -46,7 +46,7 @@ export default function SiteFooter() {
         <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Service</a>
-          <span className="beta-tag-mini">v1 Beta</span>
+          <span className="beta-tag-mini">v1</span>
         </div>
       </div>
     </footer>

@@ -8,7 +8,7 @@ import {
   GraduationCap, Zap, Terminal, CheckCircle2, BookOpen, User,
   Play, Plus, LayoutDashboard, FileText, MessageSquare, LogOut,
   Mail, Globe, MapPin, ChevronDown, Users, Heart, Github, Twitter,
-  GitBranch, Shield, Database,
+  GitBranch, Shield, Database, Sparkles,
 } from 'lucide-react'
 import '../components/UI.css'
 import ChatWidget from '../components/ChatWidget'
@@ -52,7 +52,7 @@ const STATS = [
   { icon: GitBranch, value: '1,200+', label: 'Learning paths generated' },
   { icon: BookOpen,  value: '50+',    label: 'Topics you can explore' },
   { icon: Users,     value: '5,000+', label: 'Learners onboarded' },
-  { icon: Heart,     value: '100%',   label: 'Free in beta' },
+  { icon: Heart,     value: '100%',   label: 'Free to use' },
 ]
 
 const TESTIMONIALS = [
@@ -84,7 +84,7 @@ const TESTIMONIALS = [
 ]
 
 const FAQS = [
-  { q: 'Is Lumintora really free?', a: 'Yes — completely free during the beta. Every feature on the platform is available at no cost.' },
+  { q: 'Is Lumintora really free?', a: 'Yes — completely free. Every feature on the platform is available at no cost.' },
   { q: 'How does the AI personalise my learning path?', a: 'You tell us your goal and experience level. The AI builds a structured path of lessons, quizzes, and coding problems tuned to where you are — and adapts it as you progress.' },
   { q: 'Do I need prior coding experience?', a: 'No. Lumintora works for absolute beginners as well as experienced developers looking to go deeper in a specific area.' },
   { q: 'What topics can I learn on Lumintora?', a: 'We support 50+ topics including Web Development, Data Structures & Algorithms, Machine Learning, Cybersecurity, System Design, Python, and more.' },
@@ -549,20 +549,6 @@ export default function Landing() {
   return (
     <div className="lp-page" style={{ position: 'relative' }}>
 
-      {/* ── Top announcement scroller ── */}
-      <div className="lp-announce">
-        <div className="lp-announce-track">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <span key={i} className="lp-announce-item">
-              🇮🇳&nbsp; Happy Independence Day
-              <span className="lp-announce-sep">✦</span>
-              Freedom to learn — your way, free all through beta
-              <span className="lp-announce-sep">✦</span>
-            </span>
-          ))}
-        </div>
-      </div>
-
       {/* ── Header ── */}
       <header className="lp-header">
         <Logo size={30} />
@@ -581,7 +567,7 @@ export default function Landing() {
         <div className="landing-hero-inner">
           <div className="landing-hero-text">
             <div className="beta-pill animate-fade">
-              <span className="beta-pill-tag">BETA</span>
+              <span className="beta-pill-tag">LIVE</span>
               <span>Lumintora v1 is live — completely free</span>
             </div>
 
@@ -610,11 +596,11 @@ export default function Landing() {
 
             {/* ── Hero promo banners ── */}
             <div className="lp-hero-banners animate-fade" style={{ animationDelay: '0.22s' }}>
-              <Link to="/register" className="lp-hero-banner lp-hb-fest">
-                <span className="lp-hb-emoji">🇮🇳</span>
+              <Link to="/register" className="lp-hero-banner">
+                <span className="lp-hb-ico" style={{ color: 'var(--green)', background: 'var(--green-soft, rgba(34,197,94,0.12))' }}><Sparkles size={16} /></span>
                 <div className="lp-hb-text">
-                  <strong>Independence Day offer</strong>
-                  <span>Every feature unlocked — free, all beta long.</span>
+                  <strong>Every feature unlocked</strong>
+                  <span>No paywalls, no credit card — completely free.</span>
                 </div>
                 <ArrowRight size={15} className="lp-hb-arrow" />
               </Link>
@@ -669,8 +655,8 @@ export default function Landing() {
         <div style={{ maxWidth: 1040, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', maxWidth: 600, margin: '0 auto 48px' }}>
             <div className="section-label">What's included</div>
-            <h2 className="section-title">All of it, free in beta.</h2>
-            <p className="section-sub" style={{ margin: '0 auto' }}>Every feature below is live today. We're shipping more during the beta.</p>
+            <h2 className="section-title">All of it, completely free.</h2>
+            <p className="section-sub" style={{ margin: '0 auto' }}>Every feature below is live today. We're shipping more every week.</p>
           </div>
           <div className="lp-grid">
             {features.map(f => <FeatureCard key={f.title} {...f} />)}
@@ -832,7 +818,7 @@ export default function Landing() {
         <div className="landing-glow" style={{ top: '50%' }} />
         <div style={{ maxWidth: 560, margin: '0 auto', position: 'relative' }}>
           <div className="beta-pill" style={{ margin: '0 auto 18px' }}>
-            <span className="beta-pill-tag">BETA</span><span>Now open to everyone</span>
+            <span className="beta-pill-tag">LIVE</span><span>Now open to everyone</span>
           </div>
           <h2 className="section-title">Your adaptive path starts here.</h2>
           <p style={{ fontSize: 16, color: 'var(--text-2)', margin: '12px auto 28px', lineHeight: 1.6 }}>

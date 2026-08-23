@@ -78,7 +78,7 @@ export default function Login() {
           <div className="auth-panel-stat-div" />
           <div className="auth-panel-stat"><span>50+</span><label>Topics</label></div>
           <div className="auth-panel-stat-div" />
-          <div className="auth-panel-stat"><span>Free</span><label>Always in beta</label></div>
+          <div className="auth-panel-stat"><span>Free</span><label>No card needed</label></div>
         </div>
       </div>
 
