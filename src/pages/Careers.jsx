@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import Logo from '../components/Logo'
 import {
   ArrowRight, ArrowLeft, Check, Users, Bug, Award, FileText,
-  Star, Trophy, MapPin, Clock, CheckCircle2, ChevronRight, GraduationCap, Sparkles, Bot,
+  Star, Trophy, MapPin, Clock, CheckCircle2, ChevronRight, GraduationCap, Bot,
 } from 'lucide-react'
 import '../components/UI.css'
 import SiteFooter from '../components/SiteFooter'
@@ -13,8 +13,8 @@ const ROLES = {
     slug: 'ai-fellowship',
     title: 'AI Fellowship',
     team: 'Fellowship',
-    color: '#059669',
-    bg: '#05966918',
+    color: '#7140ff',
+    bg: '#7140ff18',
     icon: GraduationCap,
     badge: 'Applications open',
     location: 'Remote',

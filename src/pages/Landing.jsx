@@ -8,7 +8,7 @@ import {
   GraduationCap, Zap, Terminal, CheckCircle2, BookOpen, User,
   Play, Plus, LayoutDashboard, FileText, MessageSquare, LogOut,
   Mail, Globe, MapPin, ChevronDown, Users, Heart, Github, Twitter,
-  GitBranch, Shield, Database, Sparkles, Menu, X, Clock,
+  GitBranch, Shield, Database, Sparkles, Menu, X,
 } from 'lucide-react'
 import '../components/UI.css'
 import ChatWidget from '../components/ChatWidget'
@@ -389,52 +389,6 @@ function ShowcaseVisual({ kind }) {
   return <DashboardShot />
 }
 
-/* ── Dedicated AI Fellowship banner (its own designed visual) ── */
-function FellowshipBanner() {
-  const chips = [
-    [Clock, '8 weeks'],
-    [Globe, 'Remote'],
-    [Users, '20 seats'],
-    [Sparkles, 'Free'],
-  ]
-  const nodes = ['LLMs', 'RAG', 'Agents', 'Adaptive learning']
-  return (
-    <div className="lp-fellow-band">
-      <div className="lp-fellow-glow" />
-      <div className="lp-fellow-inner">
-        <div className="lp-fellow-left">
-          <span className="lp-fellow-badge"><span className="lp-fel-dot" /> Applications open · Cohort 01</span>
-          <h2 className="lp-fellow-h">
-            The Lumintora <span className="lp-fellow-grad">AI Fellowship</span>
-          </h2>
-          <p className="lp-fellow-sub">
-            An 8-week, hands-on programme where you build real AI products alongside our founding team.
-            Remote, project-based, and completely free.
-          </p>
-          <div className="lp-fellow-chips">
-            {chips.map(([Ic, t]) => (
-              <span key={t} className="lp-fellow-chip"><Ic size={13} /> {t}</span>
-            ))}
-          </div>
-          <div className="lp-fellow-cta">
-            <Link to="/careers/ai-fellowship" className="btn btn-primary btn-lg">Apply for Cohort 01 <ArrowRight size={15} /></Link>
-            <Link to="/careers" className="btn btn-secondary btn-lg">View all roles</Link>
-          </div>
-        </div>
-
-        <div className="lp-fellow-art" aria-hidden="true">
-          <div className="lp-fellow-ring lp-fellow-ring-2" />
-          <div className="lp-fellow-ring" />
-          <div className="lp-fellow-core"><GraduationCap size={44} /></div>
-          {nodes.map((n, i) => (
-            <span key={n} className={`lp-fellow-node lp-fellow-node-${i + 1}`}>{n}</span>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
 function ScrollShowcase() {
   const [active, setActive] = useState(0)
   const stepRefs = useRef([])
@@ -804,8 +758,8 @@ export default function Landing() {
 
             {/* ── Hero promo banners ── */}
             <div className="lp-hero-banners animate-fade" style={{ animationDelay: '0.22s' }}>
-              <Link to="/careers/ai-fellowship" className="lp-hero-banner lp-hb-fellow">
-                <span className="lp-hb-ico" style={{ color: 'var(--green)', background: 'var(--green-soft, rgba(16,150,105,0.14))' }}><GraduationCap size={16} /></span>
+              <Link to="/careers/ai-fellowship" className="lp-hero-banner">
+                <span className="lp-hb-ico" style={{ color: 'var(--accent-ink)', background: 'var(--accent-soft)' }}><GraduationCap size={16} /></span>
                 <div className="lp-hb-text">
                   <strong>AI Fellowship — applications open</strong>
                   <span>Build real AI products with our team. Apply for Cohort 01.</span>
@@ -836,9 +790,6 @@ export default function Landing() {
           </div>
         </div>
       </div>
-
-      {/* ── AI Fellowship banner ── */}
-      <FellowshipBanner />
 
       {/* ── Scroll showcase (pinned visual changes with content) ── */}
       <ScrollShowcase />
