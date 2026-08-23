@@ -454,6 +454,28 @@
 }
 .lp-hero-banner:hover { transform: translateX(4px); box-shadow: var(--shadow); border-color: var(--border-accent); }
 .lp-hero-banner:hover .lp-hb-arrow { transform: translateX(3px); color: var(--accent); }
+
+/* Hero promo carousel */
+.lp-hbc { margin-top: 26px; width: 100%; max-width: 468px; }
+.lp-hbc-row { display: flex; align-items: center; gap: 8px; }
+.lp-hbc-track { flex: 1; min-width: 0; }
+.lp-hbc-slide { animation: hbcFade .4s ease; }
+.lp-hbc-slide:hover { transform: none; }
+@keyframes hbcFade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+.lp-hbc-arrow {
+  flex-shrink: 0; width: 32px; height: 32px; border-radius: 9px;
+  display: grid; place-items: center; cursor: pointer;
+  border: 1px solid var(--border); background: var(--bg-1); color: var(--text-2);
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+.lp-hbc-arrow:hover { color: var(--accent); border-color: var(--border-accent); background: var(--accent-soft); }
+.lp-hbc-dots { display: flex; gap: 7px; justify-content: center; margin-top: 12px; }
+.lp-hbc-dot {
+  width: 7px; height: 7px; border-radius: 50%; padding: 0; border: none; cursor: pointer;
+  background: var(--border); transition: width var(--transition), background var(--transition), border-radius var(--transition);
+}
+.lp-hbc-dot.active { width: 22px; border-radius: 100px; background: var(--accent); }
+@media (max-width: 900px) { .lp-hbc { margin-left: auto; margin-right: auto; } }
 .lp-hb-emoji { font-size: 22px; line-height: 1; flex-shrink: 0; }
 .lp-hb-ico { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .lp-hb-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; text-align: left; }
