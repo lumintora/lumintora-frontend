@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Logo from '../components/Logo'
-import { ArrowLeft, ArrowRight, Clock, Calendar, Twitter, Linkedin, Link2, Check, Target, ScanSearch, GitBranch, Route, RefreshCw, Sprout, CalendarCheck, LineChart, RotateCcw, TrendingUp } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Clock, Calendar, Twitter, Linkedin, Link2, Check, Target, ScanSearch, GitBranch, Route, RefreshCw } from 'lucide-react'
 import '../components/UI.css'
 import SiteFooter from '../components/SiteFooter'
 
@@ -11,12 +11,11 @@ const TOC = {
     { id: 'why-we-quit',            label: "Why most people quit (it isn't motivation)" },
     { id: 'consistency-over-intensity', label: 'Consistency beats intensity' },
     { id: 'the-streak-effect',      label: 'The streak effect' },
-    { id: 'the-workflow',           label: 'A workflow for staying consistent' },
-    { id: 'start-small',            label: 'Step 1 — Start absurdly small' },
-    { id: 'show-up-daily',          label: 'Step 2 — Show up daily, even badly' },
-    { id: 'make-it-visible',        label: 'Step 3 — Make progress visible' },
-    { id: 'recover-from-breaks',    label: 'Step 4 — Recover from breaks' },
-    { id: 'let-it-compound',        label: 'Step 5 — Let it compound' },
+    { id: 'start-small',            label: 'Start absurdly small' },
+    { id: 'show-up-daily',          label: 'Show up daily, even badly' },
+    { id: 'make-it-visible',        label: 'Make progress visible' },
+    { id: 'recover-from-breaks',    label: 'Recover from breaks' },
+    { id: 'let-it-compound',        label: 'Let it compound' },
     { id: 'on-lumintora',           label: 'How Lumintora keeps you consistent' },
   ],
   'future-of-learning': [
@@ -604,40 +603,10 @@ function ConsistencyProblem() {
         </Callout>
       </Section>
 
-      <Section id="the-workflow" title="A workflow for staying consistent">
+      <Section id="start-small" title="Start absurdly small">
         <P>
-          Consistency isn't a personality trait you're born with or without — it's the output of a few deliberate choices, repeated. Here's a five-step workflow for building a learning habit that survives the week your motivation disappears.
+          Consistency isn't a personality trait you're born with or without — it's the output of a few deliberate choices, repeated. And the first of those choices is to start much smaller than feels serious.
         </P>
-        <div className="blog-workflow">
-          <WorkflowStep
-            num={1} icon={Sprout}
-            title="Start absurdly small"
-            desc="Shrink the daily commitment until it's almost impossible to fail — one lesson, one problem, ten minutes. The goal at the start is not progress; it's proving to yourself that you show up. You can always do more once you've started."
-          />
-          <WorkflowStep
-            num={2} icon={CalendarCheck}
-            title="Show up daily, even badly"
-            desc="A bad session beats a skipped one, every time. On low days, lower the bar, don't skip it. The point is to keep the identity intact — 'I'm someone who learns every day' — because the streak of showing up matters more than the quality of any single day."
-          />
-          <WorkflowStep
-            num={3} icon={LineChart}
-            title="Make progress visible"
-            desc="Effort you can't see feels wasted. A streak counter, an XP total, a filling progress bar, a heatmap of active days — externalising progress turns invisible effort into visible momentum, and momentum is what pulls you back tomorrow."
-          />
-          <WorkflowStep
-            num={4} icon={RotateCcw}
-            title="Recover from breaks fast"
-            desc="You will miss a day. The learners who last aren't the ones who never break the chain — they're the ones who restart it immediately. Never miss twice. One missed day is an accident; two is the start of a new habit, the wrong one."
-          />
-          <WorkflowStep
-            num={5} icon={TrendingUp}
-            title="Let it compound"
-            desc="Small daily gains feel trivial in the moment and enormous in aggregate. Trust the math: consistent, unremarkable effort compounds into skill you could never cram your way to. Your job is to protect the streak; time does the rest."
-          />
-        </div>
-      </Section>
-
-      <Section id="start-small" title="Step 1 — Start absurdly small">
         <P>
           The most common mistake is starting too big. "I'll study two hours a day" is a commitment that feels impressive on Monday and impossible by Thursday. The bigger the daily target, the more days you'll fail to hit it — and every miss chips away at your belief that you can do this at all.
         </P>
@@ -649,7 +618,7 @@ function ConsistencyProblem() {
         </P>
       </Section>
 
-      <Section id="show-up-daily" title="Step 2 — Show up daily, even badly">
+      <Section id="show-up-daily" title="Show up daily, even badly">
         <P>
           There's a quiet trap in wanting every session to be great. When you believe learning only "counts" if you're fully focused for an hour, you'll skip the days you can't manage that — and those skipped days are what kill the habit.
         </P>
@@ -661,7 +630,7 @@ function ConsistencyProblem() {
         </Quote>
       </Section>
 
-      <Section id="make-it-visible" title="Step 3 — Make progress visible">
+      <Section id="make-it-visible" title="Make progress visible">
         <P>
           Motivation fades partly because learning is slow and its progress is invisible. You can study for two weeks and feel exactly as clueless as when you started, even though you've improved a great deal. Without visible evidence of progress, your brain concludes the effort isn't working — and stops.
         </P>
@@ -673,7 +642,7 @@ function ConsistencyProblem() {
         </Callout>
       </Section>
 
-      <Section id="recover-from-breaks" title="Step 4 — Recover from breaks">
+      <Section id="recover-from-breaks" title="Recover from breaks">
         <P>
           Here's the part almost no one plans for: you will break the streak. Life happens — travel, illness, a brutal week at work. The break itself is not the problem. What determines whether you continue is what you do the day <em>after</em> the break.
         </P>
@@ -685,7 +654,7 @@ function ConsistencyProblem() {
         </P>
       </Section>
 
-      <Section id="let-it-compound" title="Step 5 — Let it compound">
+      <Section id="let-it-compound" title="Let it compound">
         <P>
           The final step isn't an action — it's patience. Consistency is frustrating precisely because its rewards are back-loaded. For weeks it feels like nothing is happening. The gains are too small to notice day to day, which is exactly why so many people quit right before the curve turns steep.
         </P>

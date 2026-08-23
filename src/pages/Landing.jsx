@@ -97,7 +97,7 @@ const BLOG_POSTS = [
     slug: 'staying-consistent',
     tag: 'HABITS & MOTIVATION',
     title: 'The Consistency Problem: Why Most People Quit Learning',
-    excerpt: "The people who get good at something aren't the ones who started with the most motivation — they're the ones who stayed consistent after it ran out. Here's why consistency is the real skill, and a workflow for building it.",
+    excerpt: "The people who get good at something aren't the ones who started with the most motivation — they're the ones who stayed consistent after it ran out. Here's why consistency is the real skill, and how to build it.",
     readTime: '8 min read',
     date: 'August 22, 2026',
     author: 'Jathin',
