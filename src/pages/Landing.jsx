@@ -8,7 +8,7 @@ import {
   GraduationCap, Zap, Terminal, CheckCircle2, BookOpen, User,
   Play, Plus, LayoutDashboard, FileText, MessageSquare, LogOut,
   Mail, Globe, MapPin, ChevronDown, Users, Heart, Github, Twitter,
-  GitBranch, Shield, Database, Sparkles, Menu, X, ChevronLeft, ChevronRight,
+  GitBranch, Shield, Database, Sparkles, Menu, X,
 } from 'lucide-react'
 import '../components/UI.css'
 import ChatWidget from '../components/ChatWidget'
@@ -643,64 +643,6 @@ function NavMenu({ label, items }) {
   )
 }
 
-/* ── Hero promo carousel ──────────────────────────────────── */
-const HERO_BANNERS = [
-  { to: '/careers/ai-fellowship', icon: GraduationCap, iconStyle: { color: 'var(--accent-ink)', background: 'var(--accent-soft)' }, title: 'AI Fellowship — applications open', desc: 'Build real AI products with our team. Apply for Cohort 01.' },
-  { to: '/resume', icon: FileText, iconStyle: { color: 'var(--accent-ink)', background: 'var(--accent-soft)' }, title: 'New — AI Resume Builder', desc: 'A polished, print-ready resume in seconds.' },
-  { to: '/leaderboard', icon: Trophy, iconStyle: { color: '#c2790a', background: 'var(--amber-soft)' }, title: '5,000+ learners onboarded', desc: 'Climb the leaderboard and keep your streak alive.' },
-]
-
-function HeroCarousel() {
-  const [i, setI] = useState(0)
-  const [paused, setPaused] = useState(false)
-  const n = HERO_BANNERS.length
-
-  useEffect(() => {
-    if (paused) return
-    const id = setInterval(() => setI(x => (x + 1) % n), 4200)
-    return () => clearInterval(id)
-  }, [paused, n])
-
-  const go = (d) => setI(x => (x + d + n) % n)
-  const b = HERO_BANNERS[i]
-  const Icon = b.icon
-
-  return (
-    <div
-      className="lp-hbc animate-fade"
-      style={{ animationDelay: '0.22s' }}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <div className="lp-hbc-row">
-        <button type="button" className="lp-hbc-arrow" aria-label="Previous" onClick={() => go(-1)}><ChevronLeft size={16} /></button>
-        <div className="lp-hbc-track">
-          <Link to={b.to} className="lp-hero-banner lp-hbc-slide" key={i}>
-            <span className="lp-hb-ico" style={b.iconStyle}><Icon size={16} /></span>
-            <div className="lp-hb-text">
-              <strong>{b.title}</strong>
-              <span>{b.desc}</span>
-            </div>
-            <ArrowRight size={15} className="lp-hb-arrow" />
-          </Link>
-        </div>
-        <button type="button" className="lp-hbc-arrow" aria-label="Next" onClick={() => go(1)}><ChevronRight size={16} /></button>
-      </div>
-      <div className="lp-hbc-dots">
-        {HERO_BANNERS.map((_, d) => (
-          <button
-            key={d}
-            type="button"
-            className={`lp-hbc-dot ${d === i ? 'active' : ''}`}
-            aria-label={`Go to slide ${d + 1}`}
-            onClick={() => setI(d)}
-          />
-        ))}
-      </div>
-    </div>
-  )
-}
-
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
@@ -814,8 +756,33 @@ export default function Landing() {
               ))}
             </div>
 
-            {/* ── Hero promo carousel ── */}
-            <HeroCarousel />
+            {/* ── Hero promo banners ── */}
+            <div className="lp-hero-banners animate-fade" style={{ animationDelay: '0.22s' }}>
+              <Link to="/careers/ai-fellowship" className="lp-hero-banner">
+                <span className="lp-hb-ico" style={{ color: 'var(--accent-ink)', background: 'var(--accent-soft)' }}><GraduationCap size={16} /></span>
+                <div className="lp-hb-text">
+                  <strong>AI Fellowship — applications open</strong>
+                  <span>Build real AI products with our team. Apply for Cohort 01.</span>
+                </div>
+                <ArrowRight size={15} className="lp-hb-arrow" />
+              </Link>
+              <Link to="/resume" className="lp-hero-banner">
+                <span className="lp-hb-ico" style={{ color: 'var(--accent-ink)', background: 'var(--accent-soft)' }}><FileText size={16} /></span>
+                <div className="lp-hb-text">
+                  <strong>New — AI Resume Builder</strong>
+                  <span>A polished, print-ready resume in seconds.</span>
+                </div>
+                <ArrowRight size={15} className="lp-hb-arrow" />
+              </Link>
+              <Link to="/leaderboard" className="lp-hero-banner">
+                <span className="lp-hb-ico" style={{ color: '#c2790a', background: 'var(--amber-soft)' }}><Trophy size={16} /></span>
+                <div className="lp-hb-text">
+                  <strong>5,000+ learners onboarded</strong>
+                  <span>Climb the leaderboard and keep your streak alive.</span>
+                </div>
+                <ArrowRight size={15} className="lp-hb-arrow" />
+              </Link>
+            </div>
           </div>
 
           <div className="landing-hero-shot animate-fade" style={{ animationDelay: '0.22s' }}>
