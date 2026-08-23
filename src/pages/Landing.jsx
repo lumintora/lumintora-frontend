@@ -94,6 +94,17 @@ const FAQS = [
 
 const BLOG_POSTS = [
   {
+    slug: 'staying-consistent',
+    tag: 'HABITS & MOTIVATION',
+    title: 'The Consistency Problem: Why Most People Quit Learning',
+    excerpt: "The people who get good at something aren't the ones who started with the most motivation — they're the ones who stayed consistent after it ran out. Here's why consistency is the real skill, and a workflow for building it.",
+    readTime: '8 min read',
+    date: 'August 22, 2026',
+    author: 'Jathin',
+    tags: ['Habits', 'Motivation', 'Streaks', 'Learning Systems'],
+    gradient: 'linear-gradient(155deg, #2e1607 0%, #7a3d0c 55%, #1a0c03 100%)',
+  },
+  {
     slug: 'ai-changing-how-we-learn',
     tag: 'AI & LEARNING',
     title: 'AI Is Changing How We Learn: What the Next Generation of Learning Looks Like',
@@ -764,7 +775,7 @@ export default function Landing() {
             </Link>
           </div>
           <div className="lp-blog-grid">
-            {BLOG_POSTS.map(p => <BlogCard key={p.slug} post={p} />)}
+            {[...BLOG_POSTS].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3).map(p => <BlogCard key={p.slug} post={p} />)}
           </div>
         </div>
       </div>
