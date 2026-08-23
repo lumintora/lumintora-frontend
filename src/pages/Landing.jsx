@@ -557,6 +557,20 @@ export default function Landing() {
   const row1 = [...topics, ...topics]
   const row2 = [...topics.slice(5), ...topics.slice(0, 5), ...topics.slice(5), ...topics.slice(0, 5)]
 
+  // Scroll to a section when the URL carries a hash (e.g. /#contact from the footer),
+  // both on first load and when the hash changes while already on this page.
+  useEffect(() => {
+    const scrollToHash = () => {
+      const id = window.location.hash.replace('#', '')
+      if (!id) return
+      const el = document.getElementById(id)
+      if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80)
+    }
+    scrollToHash()
+    window.addEventListener('hashchange', scrollToHash)
+    return () => window.removeEventListener('hashchange', scrollToHash)
+  }, [])
+
   return (
     <div className="lp-page" style={{ position: 'relative' }}>
 
@@ -794,7 +808,7 @@ export default function Landing() {
       </div>
 
       {/* ── Contact ── */}
-      <div className="section" style={{ background: 'var(--bg)' }}>
+      <div id="contact" className="section" style={{ background: 'var(--bg)', scrollMarginTop: 80 }}>
         <div style={{ maxWidth: 1040, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 48 }}>
             <div className="section-label">Contact</div>

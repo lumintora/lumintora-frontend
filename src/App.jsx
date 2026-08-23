@@ -18,6 +18,8 @@ import FeedbackForm from './pages/FeedbackForm'
 import BlogPost from './pages/BlogPost'
 import BlogIndex from './pages/BlogIndex'
 import Careers from './pages/Careers'
+import Privacy from './pages/Privacy'
+import Terms from './pages/Terms'
 import GoogleSuccess from './pages/GoogleSuccess'
 import GoogleComplete from './pages/GoogleComplete'
 import Verify from './pages/Verify'
@@ -83,6 +85,8 @@ export default function App() {
           <Route path="/careers/:role" element={<Careers />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/verify" element={<Verify />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <ChatGate />

@@ -44,8 +44,8 @@ export default function SiteFooter() {
       <div className="lp-footer-bottom">
         <span>© 2026 Lumintora, Inc. All rights reserved.</span>
         <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+          <Link to="/privacy">Privacy Policy</Link>
+          <Link to="/terms">Terms of Service</Link>
           <span className="beta-tag-mini">v1</span>
         </div>
       </div>
