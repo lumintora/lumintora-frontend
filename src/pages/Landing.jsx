@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { api } from '../lib/api'
 import Logo from '../components/Logo'
 import { Button } from '../components/UI'
@@ -8,7 +8,7 @@ import {
   GraduationCap, Zap, Terminal, CheckCircle2, BookOpen, User,
   Play, Plus, LayoutDashboard, FileText, MessageSquare, LogOut,
   Mail, Globe, MapPin, ChevronDown, Users, Heart, Github, Twitter,
-  GitBranch, Shield, Database, Sparkles,
+  GitBranch, Shield, Database, Sparkles, Menu, X,
 } from 'lucide-react'
 import '../components/UI.css'
 import ChatWidget from '../components/ChatWidget'
@@ -553,7 +553,58 @@ function UpdatesForm() {
 
 /* ── Page ─────────────────────────────────────────────────── */
 
+/* ── Header navigation menus ──────────────────────────────── */
+const NAV_PRODUCT = [
+  { to: '/paths/new',   icon: Route,    label: 'AI Path Builder',  desc: 'Generate a path around your goal' },
+  { to: '/playground',  icon: Terminal, label: 'Code Playground',  desc: 'Write and run code in the browser' },
+  { to: '/resume',      icon: FileText, label: 'Resume Builder',   desc: 'A polished resume in seconds' },
+  { to: '/leaderboard', icon: Trophy,   label: 'Leaderboard',      desc: 'Climb the ranks, keep your streak' },
+  { to: '/dashboard',   icon: LayoutDashboard, label: 'Dashboard', desc: 'Your progress at a glance' },
+]
+const NAV_RESOURCES = [
+  { to: '/blog',      icon: BookOpen,      label: 'Blog',          desc: 'Ideas on learning and AI' },
+  { to: '/careers',   icon: Users,         label: 'Careers',       desc: "We're hiring — come build with us" },
+  { to: '/#contact',  icon: Mail,          label: 'Contact',       desc: 'Questions, ideas, partnerships' },
+  { to: '/feedback',  icon: MessageSquare, label: 'Give feedback', desc: 'Tell us what to build next' },
+]
+
+function NavMenu({ label, items }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+  useEffect(() => {
+    const onDoc = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
+    document.addEventListener('mousedown', onDoc)
+    return () => document.removeEventListener('mousedown', onDoc)
+  }, [])
+  return (
+    <div
+      className="lp-nav-item"
+      ref={ref}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button type="button" className="lp-nav-trigger" onClick={() => setOpen(o => !o)} aria-expanded={open}>
+        {label}
+        <ChevronDown size={14} className="lp-nav-chev" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
+      </button>
+      <div className={`lp-nav-drop ${open ? 'open' : ''}`}>
+        {items.map(({ to, icon: Icon, label: l, desc }) => (
+          <Link key={to} to={to} className="lp-nav-drop-item" onClick={() => setOpen(false)}>
+            <span className="lp-nav-drop-ico"><Icon size={16} /></span>
+            <span className="lp-nav-drop-text">
+              <strong>{l}</strong>
+              <span>{desc}</span>
+            </span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function Landing() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
   const row1 = [...topics, ...topics]
   const row2 = [...topics.slice(5), ...topics.slice(0, 5), ...topics.slice(5), ...topics.slice(0, 5)]
 
@@ -569,20 +620,66 @@ export default function Landing() {
     scrollToHash()
     window.addEventListener('hashchange', scrollToHash)
     return () => window.removeEventListener('hashchange', scrollToHash)
-  }, [])
+  }, [location])
 
   return (
     <div className="lp-page" style={{ position: 'relative' }}>
 
       {/* ── Header ── */}
       <header className="lp-header">
-        <Logo size={30} />
+        <Link to="/" style={{ display: 'inline-flex' }}><Logo size={30} /></Link>
+
+        {/* Centered desktop nav */}
+        <nav className="lp-nav">
+          <NavMenu label="Product" items={NAV_PRODUCT} />
+          <NavMenu label="Resources" items={NAV_RESOURCES} />
+          <a href="/#features" className="lp-nav-link">Features</a>
+          <a href="/#faq" className="lp-nav-link">FAQ</a>
+        </nav>
+
         <div className="lp-header-actions">
-          <Link to="/blog" className="btn btn-ghost btn-md lp-hide-sm">Blog</Link>
-          <Link to="/login" className="btn btn-ghost btn-md">Sign in</Link>
+          <Link to="/login" className="btn btn-ghost btn-md lp-hide-sm">Sign in</Link>
           <Link to="/register" className="btn btn-primary btn-md">Get started <ArrowRight size={15} /></Link>
+          <button
+            type="button"
+            className="lp-nav-burger"
+            aria-label="Menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(o => !o)}
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
       </header>
+
+      {/* Mobile menu panel */}
+      {menuOpen && (
+        <div className="lp-mobile-menu" onClick={() => setMenuOpen(false)}>
+          <div className="lp-mobile-menu-inner" onClick={e => e.stopPropagation()}>
+            <div className="lp-mm-group">
+              <div className="lp-mm-head">Product</div>
+              {NAV_PRODUCT.map(({ to, icon: Icon, label }) => (
+                <Link key={to} to={to} className="lp-mm-link" onClick={() => setMenuOpen(false)}>
+                  <Icon size={16} /> {label}
+                </Link>
+              ))}
+            </div>
+            <div className="lp-mm-group">
+              <div className="lp-mm-head">Resources</div>
+              {NAV_RESOURCES.map(({ to, icon: Icon, label }) => (
+                <Link key={to} to={to} className="lp-mm-link" onClick={() => setMenuOpen(false)}>
+                  <Icon size={16} /> {label}
+                </Link>
+              ))}
+              <a href="/#features" className="lp-mm-link" onClick={() => setMenuOpen(false)}><Sparkles size={16} /> Features</a>
+            </div>
+            <div className="lp-mm-actions">
+              <Link to="/login" className="btn btn-secondary btn-md" style={{ justifyContent: 'center' }} onClick={() => setMenuOpen(false)}>Sign in</Link>
+              <Link to="/register" className="btn btn-primary btn-md" style={{ justifyContent: 'center' }} onClick={() => setMenuOpen(false)}>Get started <ArrowRight size={15} /></Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── Hero ── */}
       <div className="landing-hero">
@@ -676,7 +773,7 @@ export default function Landing() {
       </div>
 
       {/* ── What's included ── */}
-      <div className="section" style={{ background: 'var(--bg-1)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
+      <div id="features" className="section" style={{ background: 'var(--bg-1)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', scrollMarginTop: 80 }}>
         <div style={{ maxWidth: 1040, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', maxWidth: 600, margin: '0 auto 48px' }}>
             <div className="section-label">What's included</div>
@@ -795,7 +892,7 @@ export default function Landing() {
       </div>
 
       {/* ── FAQ ── */}
-      <div className="section" style={{ background: 'var(--bg-1)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
+      <div id="faq" className="section" style={{ background: 'var(--bg-1)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', scrollMarginTop: 80 }}>
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 48 }}>
             <div className="section-label">FAQ</div>

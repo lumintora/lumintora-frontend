@@ -311,10 +311,89 @@
   .lp-header-actions { gap: 7px; }
   .lp-header .btn-md { padding: 8px 11px; font-size: 12px; }
   .lp-header .btn-primary svg { display: none; }        /* drop arrow to save width */
-  /* shrink the brand lockup so logo + two buttons fit a 320px screen */
-  .lp-header > span:first-child { gap: 5px !important; }
-  .lp-header > span:first-child svg { width: 25px; height: 25px; }
-  .lp-header > span:first-child > span { font-size: 16px !important; }
+  /* shrink the brand lockup so logo + button + burger fit a 320px screen */
+  .lp-header > a:first-child span[style] { gap: 5px !important; }
+  .lp-header > a:first-child svg { width: 25px; height: 25px; }
+  .lp-header > a:first-child span > span { font-size: 16px !important; }
+}
+
+/* ── Landing header navigation ── */
+.lp-nav {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 2px;
+}
+.lp-nav-link, .lp-nav-trigger {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-body); font-size: 14.5px; font-weight: 500;
+  color: var(--text-2); background: none; border: none; cursor: pointer;
+  padding: 8px 14px; border-radius: 9px; text-decoration: none;
+  transition: color .15s, background .15s;
+}
+.lp-nav-link:hover, .lp-nav-trigger:hover,
+.lp-nav-trigger[aria-expanded="true"] { color: var(--text); background: rgba(120,110,255,0.08); }
+.lp-nav-chev { transition: transform .2s; opacity: .65; }
+.lp-nav-item { position: relative; }
+.lp-nav-drop {
+  position: absolute; top: 100%; left: 50%;
+  margin-top: 4px; min-width: 302px;
+  background: var(--bg-1); border: 1px solid var(--border); border-radius: 16px;
+  box-shadow: 0 22px 55px -14px rgba(0,0,0,0.45);
+  padding: 8px; display: flex; flex-direction: column; gap: 2px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transform: translateX(-50%) translateY(6px);
+  transition: opacity .16s ease, transform .16s ease; z-index: 40;
+}
+.lp-nav-drop.open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+.lp-nav-drop-item {
+  display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+  border-radius: 11px; text-decoration: none; transition: background .14s;
+}
+.lp-nav-drop-item:hover { background: rgba(120,110,255,0.09); }
+.lp-nav-drop-ico {
+  width: 34px; height: 34px; flex-shrink: 0; border-radius: 9px;
+  display: grid; place-items: center; color: var(--accent-ink); background: var(--accent-soft);
+}
+.lp-nav-drop-text { display: flex; flex-direction: column; gap: 1px; }
+.lp-nav-drop-text strong { font-size: 14px; font-weight: 600; color: var(--text); }
+.lp-nav-drop-text span { font-size: 12.5px; color: var(--text-3); line-height: 1.35; }
+
+.lp-nav-burger {
+  display: none; background: none; border: none; color: var(--text);
+  cursor: pointer; padding: 6px; margin-left: 2px; align-items: center;
+}
+
+/* Mobile slide-in menu */
+.lp-mobile-menu {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(6,6,15,0.5); backdrop-filter: blur(4px);
+  animation: lpMmFade .16s ease;
+}
+.lp-mobile-menu-inner {
+  position: absolute; top: 0; right: 0; width: min(330px, 87vw); height: 100%;
+  background: var(--bg-1); border-left: 1px solid var(--border);
+  padding: 86px 20px 24px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 24px;
+  box-shadow: -24px 0 60px -16px rgba(0,0,0,0.5);
+  animation: lpMmSlide .22s ease;
+}
+.lp-mm-group { display: flex; flex-direction: column; gap: 2px; }
+.lp-mm-head {
+  font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 8px;
+}
+.lp-mm-link {
+  display: flex; align-items: center; gap: 12px; padding: 11px 10px; border-radius: 10px;
+  color: var(--text); text-decoration: none; font-size: 15px; font-weight: 500;
+}
+.lp-mm-link:hover { background: rgba(120,110,255,0.09); }
+.lp-mm-link svg { color: var(--accent-ink); flex-shrink: 0; }
+.lp-mm-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+@keyframes lpMmFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lpMmSlide { from { transform: translateX(24px); opacity: .5; } to { transform: translateX(0); opacity: 1; } }
+
+@media (max-width: 900px) {
+  .lp-nav { display: none; }
+  .lp-nav-burger { display: inline-flex; }
 }
 
 /* ── Top announcement scroller (Independence Day) ── */
