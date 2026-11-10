@@ -1,6 +1,10 @@
 // ?? instead of || so an empty string (Docker/nginx proxy mode) is preserved
 const BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
 
+// Exported so pages that navigate the browser directly (e.g. the Google OAuth
+// redirect) build the same base URL as the fetch client, with the fallback.
+export const API_BASE = BASE
+
 const getToken = () => localStorage.getItem('lumintora_token')
 
 async function request(path, options = {}) {
@@ -53,6 +57,7 @@ export const api = {
   explain: (data) => request('/api/v1/ai/explain', { method: 'POST', body: JSON.stringify(data) }),
   hint: (data) => request('/api/v1/ai/hint', { method: 'POST', body: JSON.stringify(data) }),
   evaluateCode: (data) => request('/api/v1/ai/evaluate-code', { method: 'POST', body: JSON.stringify(data) }),
+  debugCode: (data) => request('/api/v1/ai/debug', { method: 'POST', body: JSON.stringify(data) }),
   generateResume: (data) => request('/api/v1/ai/generate-resume', { method: 'POST', body: JSON.stringify(data) }),
 
   // Multi-language code execution (python3, java, …) via the backend gateway.
@@ -67,4 +72,32 @@ export const api = {
   issueCertificate: (pathId) => request('/api/v1/certificates', { method: 'POST', body: JSON.stringify({ path_id: pathId }) }),
   verifyCertificate: (certId) => request(`/api/v1/certificates/verify?cert=${encodeURIComponent(certId)}`),
   googleComplete: (data) => request('/api/v1/auth/google/complete', { method: 'POST', body: JSON.stringify(data) }),
+  forgotPassword: (email) => request('/api/v1/auth/forgot-password', { method: 'POST', body: JSON.stringify({ email }) }),
+  resetPassword: (data) => request('/api/v1/auth/reset-password', { method: 'POST', body: JSON.stringify(data) }),
+
+  // System Design Lab
+  systemDesignChallenge: () => request('/api/v1/system-design/challenge'),
+  systemDesignEvaluate: (data) => request('/api/v1/system-design/evaluate', { method: 'POST', body: JSON.stringify(data) }),
+
+  // Hiring Loop
+  hiringLoop: () => request('/api/v1/hiring/loop'),
+  hiringScore: (data) => request('/api/v1/hiring/score', { method: 'POST', body: JSON.stringify(data) }),
+  hiringDecide: (data) => request('/api/v1/hiring/decide', { method: 'POST', body: JSON.stringify(data) }),
+
+  // AI Debugging
+  debugChallenge: () => request('/api/v1/debug/challenge'),
+  debugHint: (data) => request('/api/v1/debug/hint', { method: 'POST', body: JSON.stringify(data) }),
+
+  // Forge — adaptive technical refresh
+  forgeSkills: () => request('/api/v1/forge/skills'),
+  forgeSkillDetail: (topicKey) => request(`/api/v1/forge/skills/${topicKey}`),
+  forgeStart: (data) => request('/api/v1/forge/refresh/start', { method: 'POST', body: JSON.stringify(data) }),
+  forgeDiagnostic: (sessionId, answers) => request(`/api/v1/forge/refresh/${sessionId}/diagnostic`, { method: 'POST', body: JSON.stringify({ answers }) }),
+  forgeNext: (sessionId) => request(`/api/v1/forge/refresh/${sessionId}/next`, { method: 'POST' }),
+  forgeAnswer: (activityId, response) => request(`/api/v1/forge/activities/${activityId}/answer`, { method: 'POST', body: JSON.stringify({ response }) }),
+  forgeComplete: (sessionId) => request(`/api/v1/forge/refresh/${sessionId}/complete`, { method: 'POST' }),
+  forgeTutor: (data) => request('/api/v1/forge/tutor', { method: 'POST', body: JSON.stringify(data) }),
+  forgeInterviewStart: (topicKey) => request('/api/v1/forge/interview/start', { method: 'POST', body: JSON.stringify({ topic_key: topicKey || '' }) }),
+  forgeInterviewReply: (id, message) => request(`/api/v1/forge/interview/${id}/reply`, { method: 'POST', body: JSON.stringify({ message }) }),
+  forgeInterviewFinish: (id, delivery) => request(`/api/v1/forge/interview/${id}/finish`, { method: 'POST', body: JSON.stringify({ delivery: delivery || null }) }),
 }

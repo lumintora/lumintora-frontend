@@ -6,15 +6,26 @@ import SiteFooter from '../components/SiteFooter'
 
 const POSTS = [
   {
+    slug: 'practice-system-design',
+    tag: 'SYSTEM DESIGN',
+    title: 'Why System Design Deserves Daily Practice — Just Like Coding Practice',
+    excerpt: "Everyone drills coding problems every day, then wings the system design round. Here's why design has stayed un-practiceable — and how making a design executable and graded turns it into real, daily reps.",
+    readTime: '6 min read',
+    date: 'November 10, 2026',
+    author: 'Bobby Nandigam',
+    tags: ['System Design', 'Interviews', 'Architecture', 'Practice'],
+    gradient: '#0f766e',
+  },
+  {
     slug: 'staying-consistent',
     tag: 'HABITS & MOTIVATION',
     title: 'The Consistency Problem: Why Most People Quit Learning',
     excerpt: "The people who get good at something aren't the ones who started with the most motivation — they're the ones who stayed consistent after it ran out. Here's why consistency is the real skill, and how to build it even when you don't feel like it.",
     readTime: '8 min read',
     date: 'August 22, 2026',
-    author: 'Jathin',
+    author: 'Bobby Nandigam',
     tags: ['Habits', 'Motivation', 'Streaks', 'Learning Systems'],
-    gradient: 'linear-gradient(155deg, #2e1607 0%, #7a3d0c 55%, #1a0c03 100%)',
+    gradient: '#b45309',
   },
   {
     slug: 'ai-changing-how-we-learn',
@@ -23,9 +34,9 @@ const POSTS = [
     excerpt: "For decades, learning meant find a course, watch, quiz, repeat. But the hard part was never access to content — it was knowing what to learn next. Here's how AI is quietly turning courses into learning systems that start with you.",
     readTime: '9 min read',
     date: 'August 15, 2026',
-    author: 'Jathin',
+    author: 'Bobby Nandigam',
     tags: ['AI & Learning', 'Adaptive Systems', 'AI Tutors', 'Learning Systems'],
-    gradient: 'linear-gradient(155deg, #06231d 0%, #0c4a3a 55%, #03150f 100%)',
+    gradient: '#0c8f5f',
   },
   {
     slug: 'future-of-learning',
@@ -34,9 +45,9 @@ const POSTS = [
     excerpt: "For too long, education has been built for the average. AI changes that. A look at why adaptive learning isn't just a buzzword — and what it actually means for every student who's ever felt left behind.",
     readTime: '8 min read',
     date: 'June 28, 2026',
-    author: 'Jathin',
+    author: 'Bobby Nandigam',
     tags: ['Traditional Education', 'AI & Learning', 'Adaptive Systems', 'Future of Ed'],
-    gradient: 'linear-gradient(155deg, #1a0e40 0%, #2d1b69 55%, #0e0726 100%)',
+    gradient: '#5b30d8',
   },
   {
     slug: 'ai-personalized-learning-path',
@@ -45,9 +56,9 @@ const POSTS = [
     excerpt: "Not all learners start at the same place. Here's how AI maps your gaps, sequences your path, and adapts in real time — so every step you take is exactly the one you need next.",
     readTime: '7 min read',
     date: 'July 1, 2026',
-    author: 'Jathin',
+    author: 'Bobby Nandigam',
     tags: ['Personalization', 'AI', 'Learning Science', 'Path Design'],
-    gradient: 'linear-gradient(155deg, #061a2e 0%, #0d3a5c 55%, #031120 100%)',
+    gradient: '#0d6ea8',
   },
 ]
 

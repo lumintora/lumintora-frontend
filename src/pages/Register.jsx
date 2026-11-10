@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import '../components/UI.css'
 import GoogleIcon from '../components/GoogleIcon'
+import { API_BASE } from '../lib/api'
 
 const USERNAME_RE = /^[a-zA-Z0-9_-]{3,30}$/
 
@@ -82,19 +83,12 @@ export default function Register() {
               </div>
             ))}
           </div>
-
-          <div className="auth-panel-quote">
-            <p>"I used Lumintora to prep for placements. The coding judge caught my edge case bugs before interviews did."</p>
-            <span>— Dwarampudi Raj Ganesh Reddy, Narayana Engineering College</span>
-          </div>
         </div>
 
         <div className="auth-panel-stats">
           <div className="auth-panel-stat"><span>Free</span><label>No credit card</label></div>
           <div className="auth-panel-stat-div" />
-          <div className="auth-panel-stat"><span>50+</span><label>Topics</label></div>
-          <div className="auth-panel-stat-div" />
-          <div className="auth-panel-stat"><span>2 min</span><label>To first path</label></div>
+          <div className="auth-panel-stat"><span>2 min</span><label>To your first path</label></div>
         </div>
       </div>
 
@@ -189,7 +183,7 @@ export default function Register() {
           <button
             type="button"
             className="btn-google"
-            onClick={() => { window.location.href = `${import.meta.env.VITE_API_URL}/api/v1/auth/google` }}
+            onClick={() => { window.location.href = `${API_BASE}/api/v1/auth/google` }}
           >
             <GoogleIcon />
             Continue with Google

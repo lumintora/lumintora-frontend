@@ -2,13 +2,14 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { useOnline } from '../hooks/useOnline'
 import {
-  LayoutDashboard, Trophy, LogOut, Plus, Zap, Code2, User, FileText, MessageSquare
+  LayoutDashboard, Trophy, LogOut, Plus, Zap, Code2, User, FileText, MessageSquare, Network, Building2, Bug
 } from 'lucide-react'
 import Logo from './Logo'
 import './UI.css'
 
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+  { to: '/system-design', icon: Network, label: 'System Design' },
   { to: '/playground', icon: Code2, label: 'Playground' },
   { to: '/leaderboard', icon: Trophy, label: 'Leaderboard' },
 ]
@@ -93,6 +94,24 @@ export function Sidebar() {
         className={`sidebar-item ${location.pathname === '/start' ? 'active' : ''}`}
       >
         <Plus size={17} /> New Path
+      </Link>
+      <Link
+        to="/system-design"
+        className={`sidebar-item ${location.pathname.startsWith('/system-design') ? 'active' : ''}`}
+      >
+        <Network size={17} /> System Design
+      </Link>
+      <Link
+        to="/hiring"
+        className={`sidebar-item ${location.pathname.startsWith('/hiring') ? 'active' : ''}`}
+      >
+        <Building2 size={17} /> Hiring Loop
+      </Link>
+      <Link
+        to="/debug"
+        className={`sidebar-item ${location.pathname.startsWith('/debug') ? 'active' : ''}`}
+      >
+        <Bug size={17} /> AI Debugging
       </Link>
       <Link
         to="/playground"

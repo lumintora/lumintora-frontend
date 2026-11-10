@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════════════════
-//  LeetCode-style judge.
+//  interview-style judge.
 //  We append a hidden harness after the learner's function, run the combined
 //  source (JavaScript in a Web Worker, Python on the backend exec gateway), and
 //  parse one marker line per test case:

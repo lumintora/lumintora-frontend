@@ -48,6 +48,13 @@ const TOC = {
     { id: 'courses-to-systems',      label: 'From courses to learning systems' },
     { id: 'becoming-personal',       label: 'Learning is becoming personal' },
   ],
+  'practice-system-design': [
+    { id: 'the-gap',          label: 'The gap no one drills' },
+    { id: 'why-hard',         label: 'Why design feels un-practiceable' },
+    { id: 'make-it-reps',     label: 'Turning design into reps' },
+    { id: 'what-to-practice', label: 'What to actually practice' },
+    { id: 'on-lumintora',     label: 'How Lumintora turns it into practice' },
+  ],
 }
 
 /* ── All blog posts defined here ──────────────────────────── */
@@ -55,7 +62,7 @@ const posts = {
   'staying-consistent': {
     tag: 'Habits & Motivation',
     title: 'The Consistency Problem: Why Most People Quit Learning',
-    author: 'Jathin',
+    author: 'Bobby Nandigam',
     role: 'Contributor, Lumintora',
     date: 'August 22, 2026',
     readTime: '8 min read',
@@ -64,7 +71,7 @@ const posts = {
   'future-of-learning': {
     tag: 'Education',
     title: 'The Future of Learning: Why One-Size-Fits-All Education No Longer Works',
-    author: 'Jathin',
+    author: 'Bobby Nandigam',
     role: 'Contributor, Lumintora',
     date: 'June 28, 2026',
     readTime: '8 min read',
@@ -73,7 +80,7 @@ const posts = {
   'ai-personalized-learning-path': {
     tag: 'AI',
     title: 'How AI Creates a Personalized Learning Path for Every Student',
-    author: 'Jathin',
+    author: 'Bobby Nandigam',
     role: 'Contributor, Lumintora',
     date: 'July 1, 2026',
     readTime: '7 min read',
@@ -82,11 +89,20 @@ const posts = {
   'ai-changing-how-we-learn': {
     tag: 'AI & Learning',
     title: 'AI Is Changing How We Learn: What the Next Generation of Learning Looks Like',
-    author: 'Jathin',
+    author: 'Bobby Nandigam',
     role: 'Contributor, Lumintora',
     date: 'August 15, 2026',
     readTime: '9 min read',
     body: <AIChangingHowWeLearn />,
+  },
+  'practice-system-design': {
+    tag: 'System Design',
+    title: 'Why System Design Deserves Daily Practice — Just Like Coding Practice',
+    author: 'Bobby Nandigam',
+    role: 'Contributor, Lumintora',
+    date: 'November 10, 2026',
+    readTime: '6 min read',
+    body: <PracticeSystemDesign />,
   },
 }
 
@@ -258,7 +274,128 @@ function Quote({ children, credit }) {
 }
 function Callout({ children }) { return <div className="blog-callout">{children}</div> }
 
+/* An on-theme architecture illustration (inline SVG — scales + themes cleanly). */
+function ArchFigure() {
+  const W = 134, H = 44
+  const boxes = [
+    { x: 8,   y: 120, label: 'Client',        c: '#7140ff' },
+    { x: 168, y: 120, label: 'Load Balancer', c: '#14b8a6' },
+    { x: 330, y: 66,  label: 'API Server',    c: '#8b6bff' },
+    { x: 330, y: 174, label: 'API Server',    c: '#8b6bff' },
+    { x: 520, y: 30,  label: 'Redis Cache',   c: '#f59e0b' },
+    { x: 520, y: 104, label: 'Postgres',      c: '#0f9d6b' },
+    { x: 520, y: 170, label: 'Read replica',  c: '#0f9d6b' },
+    { x: 520, y: 236, label: 'Queue',         c: '#8b5cf6' },
+  ]
+  const [client, lb, api1, api2, cache, db, replica, queue] = boxes
+  const rM = b => [b.x + W, b.y + H / 2]
+  const lM = b => [b.x, b.y + H / 2]
+  const links = [[client, lb], [lb, api1], [lb, api2], [api1, cache], [api2, cache], [api1, db], [api2, db], [db, replica], [api2, queue]]
+  return (
+    <figure className="blog-figure">
+      <svg viewBox="0 0 668 300" role="img" aria-label="Request flow: a client through a load balancer to two API servers, backed by a cache, a replicated database, and a queue.">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1a1626" />
+          </marker>
+        </defs>
+        {links.map(([a, b], i) => {
+          const [x1, y1] = rM(a), [x2, y2] = lM(b), mx = (x1 + x2) / 2
+          return <path key={i} d={`M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`} fill="none" stroke="#1a1626" strokeWidth="2" markerEnd="url(#arrow)" />
+        })}
+        {boxes.map((b, i) => (
+          <g key={i}>
+            <rect x={b.x} y={b.y} width={W} height={H} rx="6" fill="#ffffff" stroke="#1a1626" strokeWidth="2" />
+            <rect x={b.x} y={b.y} width="7" height={H} rx="2" fill={b.c} />
+            <text x={b.x + W / 2 + 4} y={b.y + H / 2 + 4} textAnchor="middle" fontSize="13" fontWeight="700" fill="#1a1626" fontFamily="Inter, system-ui, sans-serif">{b.label}</text>
+          </g>
+        ))}
+      </svg>
+      <figcaption>A read-heavy design: clients hit a load balancer, which spreads traffic across stateless API servers backed by a cache, a replicated database, and a queue for async work.</figcaption>
+    </figure>
+  )
+}
+
 /* ── Article content ─────────────────────────────────────── */
+
+function PracticeSystemDesign() {
+  return (
+    <>
+      <P>
+        Ask any engineer how they prepared for coding interviews and you'll hear the same answer: they drilled problems,
+        every day, until the patterns were muscle memory. Ask them how they prepared for the system design round and the
+        answer gets vague — "I read some articles," "I watched a few videos." That gap is exactly why so many strong coders
+        freeze the moment an interviewer says "design a URL shortener."
+      </P>
+
+      <Section id="the-gap" title="The gap no one drills">
+        <P>
+          Daily coding practice worked because it turned an abstract skill — problem solving — into something you could <em>do</em>, over
+          and over, with instant feedback. You wrote code, you hit run, you saw green or red. System design never got that
+          treatment. It stayed a reading-and-watching activity, which is to say: a <em>recognition</em> skill, not a
+          <em> performance</em> skill. And interviews don't test what you recognise. They test what you can produce under pressure.
+        </P>
+        <Quote credit="Every senior interview, ever">
+          Great. Now whiteboard it for me — and tell me where it breaks at 50,000 requests per second.
+        </Quote>
+      </Section>
+
+      <Section id="why-hard" title="Why design feels un-practiceable">
+        <P>There are three honest reasons system design resists practice:</P>
+        <ul className="blog-list">
+          <li><strong>No single right answer.</strong> Unlike a coding problem, there's no test suite that goes green — so it's hard to know if you did well.</li>
+          <li><strong>No fast feedback loop.</strong> You can't "run" an architecture, so you never find out your single database would have fallen over.</li>
+          <li><strong>It's easy to sound right.</strong> You can say "add a cache" and feel productive without ever reasoning about what it actually buys you.</li>
+        </ul>
+        <P>
+          Remove those three blockers and system design becomes exactly as practiceable as algorithms. That's the whole idea
+          behind treating it like a coding problem set.
+        </P>
+      </Section>
+
+      <Section id="make-it-reps" title="Turning design into reps">
+        <P>
+          The trick is to make a design <em>executable</em> — something you build, then grade against real constraints. Give a
+          brief a concrete target ("50k RPS, p99 under 50ms, survive a node failure"), let the learner assemble real components,
+          and then evaluate the result the way an interviewer would: throughput, latency, and single points of failure.
+        </P>
+        <Callout>
+          A design you can grade is a design you can practice. The moment "add a read replica" changes a number on the screen,
+          the concept stops being a buzzword and becomes a tool.
+        </Callout>
+        <ArchFigure />
+      </Section>
+
+      <Section id="what-to-practice" title="What to actually practice">
+        <P>You don't need a hundred prompts. A handful of canonical systems covers most of the interview surface:</P>
+        <ul className="blog-list">
+          <li>A URL shortener — read-heavy, caching, hashing, replication.</li>
+          <li>A news feed — fan-out, ranking, pagination, hot keys.</li>
+          <li>A chat system — connections, delivery guarantees, ordering.</li>
+          <li>A rate limiter — counters, windows, distributed state.</li>
+        </ul>
+        <P>
+          For each one, the reps are the same: start from the client, wire a path to compute, decide how you persist, where you
+          cache, and how you survive failure. Say the trade-off out loud every single time. That last habit is what separates a
+          "leaning hire" from a "strong hire."
+        </P>
+      </Section>
+
+      <Section id="on-lumintora" title="How Lumintora turns it into practice">
+        <P>
+          This is exactly why we built the System Design Lab. You drag real nodes — load balancers, caches, queues, replicas —
+          onto a live canvas, connect them yourself, and hit evaluate. The grader reports throughput, p99 latency and
+          availability, and calls out your bottlenecks: "single Postgres is a SPOF — add a read replica." It's the green-or-red
+          feedback loop that made coding practice stick, finally applied to architecture.
+        </P>
+        <P>
+          Pair it with the Hiring Loop to rehearse the design round out loud, and you're not reading about system design anymore —
+          you're drilling it. Just like coding practice, one rep at a time.
+        </P>
+      </Section>
+    </>
+  )
+}
 
 function FutureOfLearning() {
   return (
@@ -378,7 +515,7 @@ function FutureOfLearning() {
           If you've ever felt left behind by a class, or bored by material you already knew, or frustrated that a course wasn't built for someone like you — you weren't failing. The system was. That's the problem worth fixing.
         </Callout>
         <P style={{ fontStyle: 'italic', color: 'var(--text-2)', marginTop: 32 }}>
-          — Jathin, Contributor at Lumintora
+          — Bobby Nandigam
         </P>
       </Section>
     </>
@@ -542,7 +679,7 @@ function HowAIPersonalizedPath() {
           This is what personalization at scale looks like when it's done honestly: not a difficulty slider, not a curated playlist, but a system that actually knows where you are and builds the shortest bridge to where you want to be.
         </P>
         <P style={{ fontStyle: 'italic', color: 'var(--text-2)', marginTop: 32 }}>
-          — Jathin, Contributor at Lumintora
+          — Bobby Nandigam
         </P>
       </Section>
     </>
@@ -687,7 +824,7 @@ function ConsistencyProblem() {
           You don't need more motivation. You need a smaller daily step, a visible streak, and a fast way to recover when you slip. Do that long enough, and consistency stops being something you force — it becomes who you are.
         </Callout>
         <P style={{ fontStyle: 'italic', color: 'var(--text-2)', marginTop: 32 }}>
-          — Jathin, Contributor at Lumintora
+          — Bobby Nandigam
         </P>
       </Section>
     </>
@@ -819,7 +956,7 @@ function AIChangingHowWeLearn() {
           Your goal is different. Your starting point is different. Your path should be different too. That's the promise of AI-powered learning.
         </Callout>
         <P style={{ fontStyle: 'italic', color: 'var(--text-2)', marginTop: 32 }}>
-          — Jathin, Contributor at Lumintora
+          — Bobby Nandigam
         </P>
       </Section>
     </>

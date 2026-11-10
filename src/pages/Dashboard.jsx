@@ -5,7 +5,7 @@ import { api } from '../lib/api'
 import Nav from '../components/Nav'
 import { Sidebar } from '../components/Nav'
 import { StatCard, Progress, Badge, Spinner, Empty, XPBadge } from '../components/UI'
-import { Zap, Flame, BookOpen, CheckCircle, Plus, Clock, ArrowRight, Target, Code2, Play } from 'lucide-react'
+import { Zap, Flame, BookOpen, CheckCircle, Plus, Clock, ArrowRight, Target, Code2, Play, Network, Building2, Bug } from 'lucide-react'
 import '../components/UI.css'
 
 const levelColors = { beginner: 'success', intermediate: 'warning', advanced: 'danger' }
@@ -39,6 +39,31 @@ export default function Dashboard() {
             <StatCard label="Day Streak" value={`${user?.streak || 0} days`} icon={Flame} color="#f87171" />
             <StatCard label="Active Paths" value={active.length} icon={BookOpen} color="var(--accent-2)" />
             <StatCard label="Completed" value={completed.length} icon={CheckCircle} color="var(--accent-3)" />
+          </div>
+
+          {/* Interview-ready practice — System Design, hiring, debugging */}
+          <div style={{ marginBottom: 28 }}>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 700, marginBottom: 6 }}>Interview-ready practice</h2>
+            <p style={{ fontSize: 14, color: 'var(--text-2)', marginTop: 0, marginBottom: 16 }}>
+              The three rooms every serious engineering interview puts you through — rehearse each one.
+            </p>
+            <div className="lp-pillars">
+              {[
+                { to: '/system-design', icon: Network,   c: 'var(--accent)', bg: 'var(--accent-soft)', label: 'System Design Lab',
+                  desc: 'Design real architectures on a live canvas of nodes — graded against real traffic. Like daily coding practice, but for system design.' },
+                { to: '/hiring', icon: Building2, c: '#0ea5e9', bg: '#e0f2fe', label: 'Big-tech Hiring Loop',
+                  desc: 'Run the full big-tech loop — phone screen, coding, system design, behavioral — scored on real signals.' },
+                { to: '/debug', icon: Bug, c: 'var(--rose)', bg: 'var(--rose-soft)', label: 'AI Debugging',
+                  desc: 'Drop into a broken service, reason to the root cause with an AI pair, apply the fix and watch it pass.' },
+              ].map(p => (
+                <Link key={p.to} to={p.to} className="lp-pillar">
+                  <span className="lp-pillar-ico" style={{ background: p.bg, color: p.c }}><p.icon size={22} /></span>
+                  <div className="lp-pillar-title">{p.label}</div>
+                  <div className="lp-pillar-desc">{p.desc}</div>
+                  <span className="lp-pillar-cta">Open <ArrowRight size={14} /></span>
+                </Link>
+              ))}
+            </div>
           </div>
 
           {/* Hands-on code practice */}

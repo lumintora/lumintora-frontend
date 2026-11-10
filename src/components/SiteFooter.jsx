@@ -34,15 +34,13 @@ export default function SiteFooter() {
           <div className="lp-footer-col">
             <div className="lp-footer-col-head">Company</div>
             <Link to="/feedback">Give feedback</Link>
-            <Link to="/#contact">Contact</Link>
-            <Link to="/careers">Careers</Link>
             <Link to="/register">Get started — it's free</Link>
           </div>
         </div>
       </div>
       <div className="lp-footer-word" aria-hidden="true">Lumintora</div>
       <div className="lp-footer-bottom">
-        <span>© 2026 Lumintora, Inc. All rights reserved.</span>
+        <span>© 2026 Lumintora · A project by Bobby Nandigam</span>
         <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
           <Link to="/privacy">Privacy Policy</Link>
           <Link to="/terms">Terms of Service</Link>

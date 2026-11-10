@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════════════════
-//  LeetCode-style problem bank.
+//  interview-style problem bank.
 //  Each problem is solved by writing a single function with a fixed name and
 //  signature. The judge (see lib/judge.js) appends a hidden harness that calls
 //  that function for every test case and compares the result by deep-equality,

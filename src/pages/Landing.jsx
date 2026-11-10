@@ -9,6 +9,7 @@ import {
   Play, Plus, LayoutDashboard, FileText, MessageSquare, LogOut,
   Mail, Globe, MapPin, ChevronDown, Users, Heart, Github, Twitter,
   GitBranch, Shield, Database, Sparkles, Menu, X,
+  Network, Building2, Bug, Server, Layers, Cloud, Share2,
 } from 'lucide-react'
 import '../components/UI.css'
 import ChatWidget from '../components/ChatWidget'
@@ -19,13 +20,13 @@ import SiteFooter from '../components/SiteFooter'
 const steps = [
   { n: '01', title: 'Set a goal', desc: 'Tell Lumintora what you want to learn — a topic, a role, or a project.' },
   { n: '02', title: 'Get an adaptive path', desc: 'An AI generates a structured path with lessons, quizzes, and real coding problems.' },
-  { n: '03', title: 'Practice & get judged', desc: 'Solve LeetCode-style problems against real test cases — Run the samples, Submit to judge them all.' },
+  { n: '03', title: 'Practice & get judged', desc: 'Solve interview-style problems against real test cases — Run the samples, Submit to judge them all.' },
   { n: '04', title: 'Build a streak', desc: 'Earn XP, watch your contribution heatmap fill in, and climb the leaderboard.' },
 ]
 
 const features = [
   { icon: Route,        title: 'Adaptive learning paths',   desc: 'AI builds a path around your goal and reshapes it as you progress — not a fixed syllabus.' },
-  { icon: Code2,        title: 'Real coding judge',         desc: 'LeetCode-style problems with sample + hidden test cases and per-case pass/fail verdicts.' },
+  { icon: Code2,        title: 'Real coding judge',         desc: 'interview-style problems with sample + hidden test cases and per-case pass/fail verdicts.' },
   { icon: Bot,          title: 'Always-on AI tutor',        desc: 'Select any text and ask Lumi for a clear, concise explanation — right where you are.' },
   { icon: Flame,        title: 'Streaks & heatmap',         desc: 'A GitHub-style contribution heatmap, current & longest streaks, and XP that adds up.' },
   { icon: GraduationCap, title: 'Quizzes & XP',            desc: 'Adaptive quizzes pinpoint weak spots and turn effort into measurable progress.' },
@@ -33,6 +34,9 @@ const features = [
   { icon: Terminal,     title: 'Code playground',           desc: 'JavaScript runs instantly in your browser; Python runs on a real server runtime.' },
   { icon: User,         title: 'Your profile',              desc: 'Phone, email, socials, avatar, and your activity heatmap — a profile you fully control.' },
   { icon: FileText,     title: 'AI Resume Builder',         desc: 'Fill in your experience and let AI write a polished professional summary — print-ready in seconds.' },
+  { icon: Network,      title: 'System Design canvas',      desc: 'Drag real nodes — load balancers, caches, queues, databases — onto a live canvas and get them graded against real traffic.' },
+  { icon: Building2,    title: 'Big-tech hiring loop',  desc: 'Practice the exact stages big-tech teams run — phone screen, coding, system design, behavioral — scored on real signals.' },
+  { icon: Bug,          title: 'AI debugging',              desc: 'Drop into a broken system, read the stack trace, and let the AI walk you to the root cause — then apply the fix and watch it pass.' },
 ]
 
 const topics = [
@@ -48,51 +52,27 @@ const topics = [
   { icon: Zap,      color: '#8b5cf6',           bg: '#f5f3ff',             label: 'Blockchain',                   sub: 'Web3' },
 ]
 
-const STATS = [
-  { icon: GitBranch, value: '1,200+', label: 'Learning paths generated' },
-  { icon: BookOpen,  value: '50+',    label: 'Topics you can explore' },
-  { icon: Users,     value: '5,000+', label: 'Learners onboarded' },
-  { icon: Heart,     value: '100%',   label: 'Free to use' },
-]
-
-const TESTIMONIALS = [
-  {
-    name: 'Raj Ganesh Reddy',
-    role: 'Student · Narayana Engineering College',
-    text: '"Used it to prep for placements. The judge is brilliant — hidden test cases helped me catch bugs before the actual interview."',
-  },
-  {
-    name: 'Dheeraj Kumar',
-    role: 'SAP ABAP Developer · SAP',
-    text: '"Used it to upskill in Python alongside my ABAP work. What I love is that the path skipped basics I already knew — it treated me like someone who codes, not a beginner."',
-  },
-  {
-    name: 'Naveen Nelamalli',
-    role: 'Job Aspirant',
-    text: '"I\'ve tried Coursera, I\'ve tried YouTube. Nothing tracked what I knew and what I didn\'t. Lumintora is the first system that felt like it was built for me specifically."',
-  },
-  {
-    name: 'Anish Induri',
-    role: 'Software Engineer · HCL',
-    text: '"The streak heatmap and XP actually kept me consistent for the first time. Three weeks, no breaks. I hadn\'t managed that with any other learning platform."',
-  },
-  {
-    name: 'Nelluru Jaz',
-    role: 'Student',
-    text: '"Lumintora built me something I couldn\'t find elsewhere. I\'d been watching playlists for months but never understood where I stood. This showed me exactly."',
-  },
-]
-
 const FAQS = [
   { q: 'Is Lumintora really free?', a: 'Yes — completely free. Every feature on the platform is available at no cost.' },
   { q: 'How does the AI personalise my learning path?', a: 'You tell us your goal and experience level. The AI builds a structured path of lessons, quizzes, and coding problems tuned to where you are — and adapts it as you progress.' },
   { q: 'Do I need prior coding experience?', a: 'No. Lumintora works for absolute beginners as well as experienced developers looking to go deeper in a specific area.' },
-  { q: 'What topics can I learn on Lumintora?', a: 'We support 50+ topics including Web Development, Data Structures & Algorithms, Machine Learning, Cybersecurity, System Design, Python, and more.' },
+  { q: 'What topics can I learn on Lumintora?', a: 'Practically any technical topic — Web Development, Data Structures & Algorithms, Machine Learning, Cybersecurity, System Design, Python, and more. Tell us your goal and the AI generates a path for it.' },
   { q: 'How is this different from Coursera or Udemy?', a: 'Courses give you fixed content. Lumintora builds a path around your specific goal and adjusts it based on what you actually know. You also get a real coding judge, not just videos.' },
   { q: 'Can I use Lumintora on my phone?', a: 'Yes — Lumintora is fully responsive. Lessons and quizzes work great on mobile, though the code editor is best on a larger screen.' },
 ]
 
 const BLOG_POSTS = [
+  {
+    slug: 'practice-system-design',
+    tag: 'SYSTEM DESIGN',
+    title: 'Why System Design Deserves Daily Practice — Just Like Coding Practice',
+    excerpt: "Everyone drills coding problems every day, then wings the system design round. Here's why design has stayed un-practiceable — and how making a design executable and graded turns it into real, daily reps.",
+    readTime: '6 min read',
+    date: 'November 10, 2026',
+    author: 'Bobby Nandigam',
+    tags: ['System Design', 'Interviews', 'Architecture', 'Practice'],
+    gradient: '#0f766e',
+  },
   {
     slug: 'staying-consistent',
     tag: 'HABITS & MOTIVATION',
@@ -100,9 +80,9 @@ const BLOG_POSTS = [
     excerpt: "The people who get good at something aren't the ones who started with the most motivation — they're the ones who stayed consistent after it ran out. Here's why consistency is the real skill, and how to build it.",
     readTime: '8 min read',
     date: 'August 22, 2026',
-    author: 'Jathin',
+    author: 'Bobby Nandigam',
     tags: ['Habits', 'Motivation', 'Streaks', 'Learning Systems'],
-    gradient: 'linear-gradient(155deg, #2e1607 0%, #7a3d0c 55%, #1a0c03 100%)',
+    gradient: '#b45309',
   },
   {
     slug: 'ai-changing-how-we-learn',
@@ -111,9 +91,9 @@ const BLOG_POSTS = [
     excerpt: "For decades, learning meant find a course, watch, quiz, repeat. But the hard part was never access to content — it was knowing what to learn next. Here's how AI is quietly turning courses into learning systems that start with you.",
     readTime: '9 min read',
     date: 'August 15, 2026',
-    author: 'Jathin',
+    author: 'Bobby Nandigam',
     tags: ['AI & Learning', 'Adaptive Systems', 'AI Tutors', 'Learning Systems'],
-    gradient: 'linear-gradient(155deg, #06231d 0%, #0c4a3a 55%, #03150f 100%)',
+    gradient: '#0c8f5f',
   },
   {
     slug: 'future-of-learning',
@@ -122,9 +102,9 @@ const BLOG_POSTS = [
     excerpt: "For too long, education has been built for the average. AI changes that. A look at why adaptive learning isn't just a buzzword — and what it actually means for every student who's ever felt left behind.",
     readTime: '8 min read',
     date: 'June 28, 2026',
-    author: 'Jathin',
+    author: 'Bobby Nandigam',
     tags: ['Traditional Education', 'AI & Learning', 'Adaptive Systems', 'Future of Ed'],
-    gradient: 'linear-gradient(155deg, #1a0e40 0%, #2d1b69 55%, #0e0726 100%)',
+    gradient: '#5b30d8',
   },
   {
     slug: 'ai-personalized-learning-path',
@@ -133,9 +113,9 @@ const BLOG_POSTS = [
     excerpt: "Not all learners start at the same place. Here's how AI maps your gaps, sequences your path, and adapts in real time — so every step you take is exactly the one you need next.",
     readTime: '7 min read',
     date: 'July 1, 2026',
-    author: 'Jathin',
+    author: 'Bobby Nandigam',
     tags: ['Personalization', 'AI', 'Learning Science', 'Path Design'],
-    gradient: 'linear-gradient(155deg, #061a2e 0%, #0d3a5c 55%, #031120 100%)',
+    gradient: '#0d6ea8',
   },
 ]
 
@@ -334,41 +314,41 @@ function StreakVisual() {
   )
 }
 
-function FellowshipVisual() {
-  const stats = [
-    ['8 wks', 'Duration'],
-    ['Remote', 'Format'],
-    ['20', 'Seats'],
-    ['Free', 'Tuition'],
+/* A real-looking system-design canvas: nodes wired together with live edges. */
+function SystemDesignVisual() {
+  const nodes = [
+    { id: 'client', label: 'Client',        icon: User,     x: 11, y: 40, c: 'var(--accent)' },
+    { id: 'cdn',    label: 'CDN',           icon: Cloud,    x: 30, y: 12, c: '#0ea5e9' },
+    { id: 'lb',     label: 'Load Balancer', icon: Share2,   x: 30, y: 68, c: '#14b8a6' },
+    { id: 'api',    label: 'API Server',    icon: Server,   x: 55, y: 40, c: 'var(--accent-2)' },
+    { id: 'cache',  label: 'Redis Cache',   icon: Zap,      x: 80, y: 14, c: '#f59e0b' },
+    { id: 'db',     label: 'Postgres',      icon: Database, c: 'var(--green)', x: 80, y: 44 },
+    { id: 'queue',  label: 'Queue',         icon: Layers,   x: 80, y: 74, c: '#8b5cf6' },
   ]
-  const tracks = [
-    ['Applied AI Engineering', 'Build with LLMs, RAG and agents'],
-    ['Product & Design', 'Ship real features end-to-end'],
-    ['Learning Science', 'Design adaptive learning systems'],
-  ]
+  const at = (id) => nodes.find(n => n.id === id)
+  const edges = [['client', 'cdn'], ['client', 'lb'], ['cdn', 'api'], ['lb', 'api'], ['api', 'cache'], ['api', 'db'], ['api', 'queue']]
   return (
-    <Shot url="lumintora.in/careers/ai-fellowship" className="lp-shot-hero">
-      <div className="lp-fel-head">
-        <div>
-          <div className="lp-fel-kicker">LUMINTORA · COHORT 01</div>
-          <div className="lp-fel-title">AI Fellowship</div>
-        </div>
-        <span className="lp-fel-open"><span className="lp-fel-dot" /> Applications open</span>
-      </div>
-      <div className="lp-fel-stats">
-        {stats.map(([v, l]) => (
-          <div key={l} className="lp-fel-stat"><div className="lp-fel-sv">{v}</div><div className="lp-fel-sl">{l}</div></div>
-        ))}
-      </div>
-      <div className="lp-fel-tracks">
-        {tracks.map(([t, d]) => (
-          <div key={t} className="lp-fel-track">
-            <span className="lp-fel-track-ico"><Sparkles size={13} /></span>
-            <div><div className="lp-fel-track-t">{t}</div><div className="lp-fel-track-d">{d}</div></div>
+    <Shot url="lumintora.in/system-design" className="lp-shot-hero" bodyClass="lp-sd-flush">
+      <div className="lp-sd-canvas">
+        <svg className="lp-sd-edges" viewBox="0 0 100 100" preserveAspectRatio="none">
+          {edges.map(([a, b]) => {
+            const na = at(a), nb = at(b)
+            return <line key={`${a}-${b}`} x1={na.x} y1={na.y} x2={nb.x} y2={nb.y} />
+          })}
+        </svg>
+        {nodes.map(n => (
+          <div key={n.id} className="lp-sd-node" style={{ left: `${n.x}%`, top: `${n.y}%` }}>
+            <span className="lp-sd-node-ico" style={{ background: `color-mix(in srgb, ${n.c} 15%, var(--bg-1))`, color: n.c }}>
+              <n.icon size={14} />
+            </span>
+            <span className="lp-sd-node-label">{n.label}</span>
           </div>
         ))}
       </div>
-      <div className="lp-fel-cta">Apply for Cohort 01 <ArrowRight size={13} /></div>
+      <div className="lp-sd-verdict">
+        <span className="lp-sd-verdict-ico"><Bot size={13} /></span>
+        <span><strong>Handles ~12k RPS.</strong> Single Postgres is the bottleneck — add a read replica to pass the 50k target.</span>
+      </div>
     </Shot>
   )
 }
@@ -378,14 +358,12 @@ const SHOWCASE = [
   { id: 'path', icon: Route, title: 'A path built around your goal', desc: 'Tell Lumintora what you want to learn. It generates lessons, quizzes and real coding problems — then reshapes them as you progress.', visual: 'path' },
   { id: 'tutor', icon: Bot, title: 'An AI tutor, right where you are', desc: 'Stuck on a line? Ask Lumi for a clear, concise explanation without ever leaving your lesson.', visual: 'tutor' },
   { id: 'streak', icon: Flame, title: 'Momentum you can actually see', desc: 'A GitHub-style contribution heatmap, current and longest streaks, and XP that turns effort into visible progress.', visual: 'streak' },
-  { id: 'fellowship', icon: GraduationCap, title: 'AI Fellowship — applications open', desc: 'Join Cohort 01 and build real AI products with our team. Remote, hands-on and free — applications are open now.', visual: 'fellowship' },
 ]
 
 function ShowcaseVisual({ kind }) {
   if (kind === 'path') return <PathVisual />
   if (kind === 'tutor') return <TutorVisual />
   if (kind === 'streak') return <StreakVisual />
-  if (kind === 'fellowship') return <FellowshipVisual />
   return <DashboardShot />
 }
 
@@ -447,24 +425,6 @@ function FeatureCard({ icon: Icon, title, desc }) {
       <div className="lp-feat-ico"><Icon size={18} /></div>
       <div style={{ fontWeight: 600, fontSize: 15, marginBottom: 4 }}>{title}</div>
       <div style={{ fontSize: 13, color: 'var(--text-2)', lineHeight: 1.55 }}>{desc}</div>
-    </div>
-  )
-}
-
-function TestimonialCard({ t }) {
-  return (
-    <div className="lp-tcard">
-      <div className="lp-tcard-stars">
-        {[...Array(5)].map((_, i) => <span key={i} style={{ color: '#f59e0b', fontSize: 17 }}>★</span>)}
-      </div>
-      <p className="lp-tcard-text">{t.text}</p>
-      <div className="lp-tcard-foot">
-        <div className="lp-tcard-ava">{t.name[0]}</div>
-        <div>
-          <div className="lp-tcard-name">{t.name}</div>
-          <div className="lp-tcard-role">{t.role}</div>
-        </div>
-      </div>
     </div>
   )
 }
@@ -596,16 +556,16 @@ function UpdatesForm() {
 
 /* ── Header navigation menus ──────────────────────────────── */
 const NAV_PRODUCT = [
+  { to: '/system-design', icon: Network,  label: 'System Design Lab', desc: 'Design real architectures on a live canvas' },
+  { to: '/hiring',        icon: Building2, label: 'Hiring Loop',       desc: 'Practice the Big-tech interview loop' },
+  { to: '/debug',         icon: Bug,       label: 'AI Debugging',      desc: 'Fix broken systems with an AI pair' },
   { to: '/paths/new',   icon: Route,    label: 'AI Path Builder',  desc: 'Generate a path around your goal' },
   { to: '/playground',  icon: Terminal, label: 'Code Playground',  desc: 'Write and run code in the browser' },
   { to: '/resume',      icon: FileText, label: 'Resume Builder',   desc: 'A polished resume in seconds' },
   { to: '/leaderboard', icon: Trophy,   label: 'Leaderboard',      desc: 'Climb the ranks, keep your streak' },
-  { to: '/dashboard',   icon: LayoutDashboard, label: 'Dashboard', desc: 'Your progress at a glance' },
 ]
 const NAV_RESOURCES = [
   { to: '/blog',      icon: BookOpen,      label: 'Blog',          desc: 'Ideas on learning and AI' },
-  { to: '/careers',   icon: Users,         label: 'Careers',       desc: "We're hiring — come build with us" },
-  { to: '/#contact',  icon: Mail,          label: 'Contact',       desc: 'Questions, ideas, partnerships' },
   { to: '/feedback',  icon: MessageSquare, label: 'Give feedback', desc: 'Tell us what to build next' },
 ]
 
@@ -638,6 +598,42 @@ function NavMenu({ label, items }) {
             </span>
           </Link>
         ))}
+      </div>
+    </div>
+  )
+}
+
+/* ── Student reviews ── */
+const REVIEWS = [
+  { name: 'Yogish Reddy',   role: 'CSE grad · Bengaluru',        stars: 5, text: 'The System Design Lab finally made architecture click for me. Dragging real nodes and getting graded against actual traffic is miles better than watching videos.' },
+  { name: 'Anish Induri',   role: 'Backend developer',           stars: 5, text: 'Practised the Hiring Loop every night before my interviews. Getting scored on the exact signals an interviewer looks for completely changed how I answered.' },
+  { name: 'Dheeraj Amuluru',role: 'Final-year CS student',       stars: 5, text: 'The AI Debugging page is genuinely clever — it guides you to the bug but never hands over the fix, so you actually learn. Cleared my first on-site because of it.' },
+  { name: 'Sahana Prasad',  role: 'SDE-1 @ product startup',     stars: 4, text: 'Generated a DSA path around my goal and the streak heatmap kept me honest. Went from scattered practice to a real routine in two weeks. Would love more advanced problems.' },
+  { name: 'Rohit Varma',    role: 'Full-stack developer',        stars: 4, text: 'Love that everything is free and the code judge runs real test cases. The System Design grader catching my single-DB SPOF was a nice reality check.' },
+  { name: 'Keerthi Nair',   role: 'ECE → SWE switcher',          stars: 5, text: 'As someone switching into software, the adaptive paths met me exactly where I was. Lumintora feels like a product built by people who actually interview.' },
+]
+
+function Stars({ n }) {
+  return (
+    <div className="lp-review-stars">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Heart key={i} size={13} fill={i < n ? '#f5a623' : 'none'} color={i < n ? '#f5a623' : 'var(--text-3)'} />
+      ))}
+    </div>
+  )
+}
+
+function ReviewCard({ r }) {
+  return (
+    <div className="lp-review">
+      <Stars n={r.stars} />
+      <p className="lp-review-text">“{r.text}”</p>
+      <div className="lp-review-who">
+        <span className="lp-review-ava">{r.name[0]}</span>
+        <div>
+          <div className="lp-review-name">{r.name}</div>
+          <div className="lp-review-role">{r.role}</div>
+        </div>
       </div>
     </div>
   )
@@ -735,7 +731,7 @@ export default function Landing() {
 
             <h1 className="landing-h1 animate-fade" style={{ animationDelay: '0.05s' }}>
               Your goal. Your path.<br />
-              <span className="gradient-text" style={{ fontStyle: 'italic' }}>Your way to learn.</span>
+              <span className="gradient-text">Your way to learn.</span>
             </h1>
 
             <p className="landing-sub animate-fade" style={{ animationDelay: '0.1s' }}>
@@ -758,11 +754,11 @@ export default function Landing() {
 
             {/* ── Hero promo banners ── */}
             <div className="lp-hero-banners animate-fade" style={{ animationDelay: '0.22s' }}>
-              <Link to="/careers/ai-fellowship" className="lp-hero-banner">
-                <span className="lp-hb-ico" style={{ color: 'var(--accent-ink)', background: 'var(--accent-soft)' }}><GraduationCap size={16} /></span>
+              <Link to="/system-design" className="lp-hero-banner">
+                <span className="lp-hb-ico" style={{ color: 'var(--accent-ink)', background: 'var(--accent-soft)' }}><Network size={16} /></span>
                 <div className="lp-hb-text">
-                  <strong>AI Fellowship — applications open</strong>
-                  <span>Build real AI products with our team. Apply for Cohort 01.</span>
+                  <strong>New — System Design Lab</strong>
+                  <span>Design real architectures on a live canvas — the way daily coding practice made it click.</span>
                 </div>
                 <ArrowRight size={15} className="lp-hb-arrow" />
               </Link>
@@ -777,8 +773,8 @@ export default function Landing() {
               <Link to="/leaderboard" className="lp-hero-banner">
                 <span className="lp-hb-ico" style={{ color: '#c2790a', background: 'var(--amber-soft)' }}><Trophy size={16} /></span>
                 <div className="lp-hb-text">
-                  <strong>5,000+ learners onboarded</strong>
-                  <span>Climb the leaderboard and keep your streak alive.</span>
+                  <strong>Compete on the leaderboard</strong>
+                  <span>Earn XP, keep your streak, and see where you rank.</span>
                 </div>
                 <ArrowRight size={15} className="lp-hb-arrow" />
               </Link>
@@ -793,6 +789,61 @@ export default function Landing() {
 
       {/* ── Scroll showcase (pinned visual changes with content) ── */}
       <ScrollShowcase />
+
+      {/* ── System Design flagship ── */}
+      <div id="system-design" className="section lp-sd-section" style={{ scrollMarginTop: 80 }}>
+        <div className="lp-sd-wrap">
+          <div className="lp-sd-copy">
+            <div className="section-label">System Design, finally practiced</div>
+            <h2 className="section-title" style={{ marginBottom: 14 }}>
+              Coding practice became a daily habit.<br />
+              <span className="gradient-text">Lumintora does it for system design.</span>
+            </h2>
+            <p className="section-sub" style={{ maxWidth: 520 }}>
+              Everyone grinds algorithm problems. Almost no one practices the thing that actually decides senior interviews.
+              Lumintora turns system design into real reps — drag live nodes onto a canvas, wire them together, and get graded
+              against real traffic, not a vague rubric.
+            </p>
+            <ul className="lp-sd-points">
+              <li><CheckCircle2 size={16} color="var(--green)" /> Real nodes — load balancers, caches, queues, replicas</li>
+              <li><CheckCircle2 size={16} color="var(--green)" /> Graded against real throughput, latency and failure modes</li>
+              <li><CheckCircle2 size={16} color="var(--green)" /> An AI reviewer that finds your bottleneck, like an interviewer would</li>
+            </ul>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 24 }}>
+              <Link to="/system-design" className="btn btn-primary btn-lg">Open the System Design Lab <ArrowRight size={16} /></Link>
+            </div>
+          </div>
+          <div className="lp-sd-shot"><SystemDesignVisual /></div>
+        </div>
+      </div>
+
+      {/* ── Three pillars: design · hiring · debugging ── */}
+      <div className="section" style={{ background: 'var(--bg-1)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
+        <div style={{ maxWidth: 1040, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', maxWidth: 620, margin: '0 auto 48px' }}>
+            <div className="section-label">Built for the real bar</div>
+            <h2 className="section-title">Practice the way you'll actually be tested.</h2>
+            <p className="section-sub" style={{ margin: '0 auto' }}>Three rooms every serious engineering interview puts you through — now you can rehearse each one.</p>
+          </div>
+          <div className="lp-pillars">
+            {[
+              { to: '/system-design', icon: Network,  c: 'var(--accent)', bg: 'var(--accent-soft)', label: 'System Design Lab',
+                desc: 'Design URL shorteners, feeds and chat systems on a live canvas of real nodes — then watch the AI stress-test your architecture.' },
+              { to: '/hiring', icon: Building2, c: '#0ea5e9', bg: '#e0f2fe', label: 'Big-tech Hiring Loop',
+                desc: 'Run the full big-tech loop — phone screen, coding, system design, behavioral — scored on the same signals a hiring committee reads.' },
+              { to: '/debug', icon: Bug, c: 'var(--rose)', bg: 'var(--rose-soft)', label: 'AI Debugging',
+                desc: 'Get dropped into a broken service with a failing stack trace. Reason to the root cause with an AI pair, apply the fix, watch it go green.' },
+            ].map(p => (
+              <Link key={p.to} to={p.to} className="lp-pillar">
+                <span className="lp-pillar-ico" style={{ background: p.bg, color: p.c }}><p.icon size={22} /></span>
+                <div className="lp-pillar-title">{p.label}</div>
+                <div className="lp-pillar-desc">{p.desc}</div>
+                <span className="lp-pillar-cta">Try it <ArrowRight size={14} /></span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* ── How it works ── */}
       <div className="section">
@@ -830,7 +881,7 @@ export default function Landing() {
       <div className="lp-marquee-section">
         <div style={{ maxWidth: 1040, margin: '0 auto 36px', padding: '0 24px', textAlign: 'center' }}>
           <div className="section-label">Learning Paths</div>
-          <h2 className="section-title" style={{ marginBottom: 10 }}>50+ topics. One platform.</h2>
+          <h2 className="section-title" style={{ marginBottom: 10 }}>Any topic. One platform.</h2>
           <p style={{ color: 'var(--text-2)', fontSize: 16, margin: 0 }}>
             Tell us your goal and we'll generate a path — no matter the topic.
           </p>
@@ -872,44 +923,6 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* ── By the Numbers ── */}
-      <div className="section">
-        <div className="landing-glow" style={{ opacity: 0.5 }} />
-        <div style={{ maxWidth: 1040, margin: '0 auto', position: 'relative' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <div className="section-label">By the Numbers</div>
-            <h2 className="section-title">Learning that moves fast.</h2>
-          </div>
-          <div className="lp-num-grid">
-            {STATS.map(({ icon: Icon, value, label }) => (
-              <div key={label} className="lp-num-card">
-                <div className="lp-num-ico"><Icon size={20} /></div>
-                <div className="lp-num-value">{value}</div>
-                <div className="lp-num-label">{label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Testimonials ── */}
-      <div className="section" style={{ background: 'var(--bg-1)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', overflow: 'hidden', paddingBottom: 80 }}>
-        <div style={{ maxWidth: 1040, margin: '0 auto 44px', padding: '0 24px', textAlign: 'center' }}>
-          <div className="section-label">Testimonials</div>
-          <h2 className="section-title" style={{ marginBottom: 10 }}>Real learners. Real results.</h2>
-          <p style={{ color: 'var(--text-2)', fontSize: 16, margin: 0 }}>
-            From engineering students to working professionals — here's what people are saying.
-          </p>
-        </div>
-        <div className="lp-trow-wrap">
-          <div className="lp-trow">
-            {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
-              <TestimonialCard key={i} t={t} />
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* ── Blog ── */}
       <div className="section" style={{ background: 'var(--bg)' }}>
         <div style={{ maxWidth: 1040, margin: '0 auto' }}>
@@ -931,6 +944,56 @@ export default function Landing() {
         </div>
       </div>
 
+      {/* ── Student reviews ── */}
+      <div className="section" style={{ background: 'var(--bg)' }}>
+        <div style={{ maxWidth: 1040, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', maxWidth: 620, margin: '0 auto 48px' }}>
+            <div className="section-label">Loved by learners</div>
+            <h2 className="section-title">What students are saying.</h2>
+            <p className="section-sub" style={{ margin: '0 auto' }}>Real learners using Lumintora to crack system design, interviews and their first roles.</p>
+          </div>
+          <div className="lp-reviews">
+            {REVIEWS.map(r => <ReviewCard key={r.name} r={r} />)}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Contact + Location ── */}
+      <div id="contact" className="section" style={{ background: 'var(--bg-1)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', scrollMarginTop: 80 }}>
+        <div style={{ maxWidth: 1040, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', maxWidth: 600, margin: '0 auto 48px' }}>
+            <div className="section-label">Get in touch</div>
+            <h2 className="section-title">Questions? We're in Bengaluru.</h2>
+            <p className="section-sub" style={{ margin: '0 auto' }}>Drop us a message and we'll reply within 24 hours — or find us near Marathahalli.</p>
+          </div>
+          <div className="lp-contact-grid">
+            <ContactForm />
+            <div className="lp-location">
+              <div className="lp-loc-head">
+                <span className="lp-loc-ico"><MapPin size={18} /></span>
+                <div>
+                  <div className="lp-loc-title">Lumintora HQ</div>
+                  <div className="lp-loc-addr">Marathahalli, Bengaluru,<br />Karnataka 560037, India</div>
+                </div>
+              </div>
+              <div className="lp-map">
+                <iframe
+                  title="Lumintora location — Marathahalli, Bengaluru"
+                  src="https://maps.google.com/maps?q=Marathahalli%2C%20Bengaluru%2C%20Karnataka&z=14&output=embed"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
+              <div className="lp-loc-meta">
+                <span><Mail size={13} /> lumintoraai@gmail.com</span>
+                <a href="https://maps.google.com/?q=Marathahalli,Bengaluru" target="_blank" rel="noreferrer" className="lp-loc-link">Open in Maps <ArrowRight size={13} /></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── FAQ ── */}
       <div id="faq" className="section" style={{ background: 'var(--bg-1)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', scrollMarginTop: 80 }}>
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
@@ -940,37 +1003,6 @@ export default function Landing() {
           </div>
           <div className="lp-faq">
             {FAQS.map(faq => <FAQItem key={faq.q} {...faq} />)}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Contact ── */}
-      <div id="contact" className="section" style={{ background: 'var(--bg)', scrollMarginTop: 80 }}>
-        <div style={{ maxWidth: 1040, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <div className="section-label">Contact</div>
-            <h2 className="section-title">Get in touch.</h2>
-            <p style={{ color: 'var(--text-2)', fontSize: 16, margin: 0 }}>Questions, feedback, or partnership ideas — we read everything.</p>
-          </div>
-          <div className="lp-contact-grid">
-            <div>
-              <div className="lp-contact-info">
-                <div className="lp-contact-info-item"><Mail size={16} /><span>lumintoraai@gmail.com</span></div>
-                <div className="lp-contact-info-item"><Globe size={16} /><span>www.lumintora.in</span></div>
-                <div className="lp-contact-info-item"><MapPin size={16} /><span>Marathahalli, Bangalore, Karnataka, India</span></div>
-              </div>
-              <ContactForm />
-            </div>
-            <div className="lp-map">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15554.335738671073!2d77.68978637768555!3d12.959261090861143!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae138ae7a3f9f5%3A0xabe88109d3aa59fe!2sMarathahalli%2C+Bengaluru%2C+Karnataka!5e0!3m2!1sen!2sin!4v1688000000000!5m2!1sen!2sin"
-                width="100%" height="100%"
-                style={{ border: 0, borderRadius: 12, minHeight: 380 }}
-                allowFullScreen loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Lumintora location"
-              />
-            </div>
           </div>
         </div>
       </div>

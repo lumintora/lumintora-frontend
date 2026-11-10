@@ -5,6 +5,7 @@ import { applyTheme, getSavedThemeId, DEFAULT_THEME } from './lib/themes'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import ForgotPassword from './pages/ForgotPassword'
 import Dashboard from './pages/Dashboard'
 import PathDetail from './pages/PathDetail'
 import ModulePage from './pages/ModulePage'
@@ -12,12 +13,18 @@ import Leaderboard from './pages/Leaderboard'
 import NewPath from './pages/NewPath'
 import Onboarding from './pages/Onboarding'
 import Playground from './pages/Playground'
+import SystemDesign from './pages/SystemDesign'
+import Hiring from './pages/Hiring'
+import Debug from './pages/Debug'
+import ForgeHome from './pages/ForgeHome'
+import ForgeRefresh from './pages/ForgeRefresh'
+import ForgeSkill from './pages/ForgeSkill'
+import ForgeInterview from './pages/ForgeInterview'
 import Profile from './pages/Profile'
 import ResumeGenerator from './pages/ResumeGenerator'
 import FeedbackForm from './pages/FeedbackForm'
 import BlogPost from './pages/BlogPost'
 import BlogIndex from './pages/BlogIndex'
-import Careers from './pages/Careers'
 import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
 import GoogleSuccess from './pages/GoogleSuccess'
@@ -31,12 +38,12 @@ function ChatGate() {
   return user ? <AiChat /> : null
 }
 
-// Custom themes recolor the in-app experience only. The public homepage always
-// renders in the default Aurora palette, so marketing visuals stay consistent.
+// One consistent palette everywhere — the whole app always renders in the
+// default Aurora theme; there is no per-user recolouring.
 function ThemeController() {
   const { pathname } = useLocation()
   useLayoutEffect(() => {
-    applyTheme(pathname === '/' || pathname.startsWith('/blog') ? DEFAULT_THEME : getSavedThemeId())
+    applyTheme(DEFAULT_THEME)
   }, [pathname])
   return null
 }
@@ -66,11 +73,20 @@ export default function App() {
         <ThemeController />
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/system-design" element={<SystemDesign />} />
+          <Route path="/hiring" element={<Hiring />} />
+          <Route path="/debug" element={<Debug />} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ForgotPassword />} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/start" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
           <Route path="/playground" element={<ProtectedRoute><Playground /></ProtectedRoute>} />
+          <Route path="/forge" element={<ProtectedRoute><ForgeHome /></ProtectedRoute>} />
+          <Route path="/forge/refresh" element={<ProtectedRoute><ForgeRefresh /></ProtectedRoute>} />
+          <Route path="/forge/skill/:topicKey" element={<ProtectedRoute><ForgeSkill /></ProtectedRoute>} />
+          <Route path="/forge/interview" element={<ProtectedRoute><ForgeInterview /></ProtectedRoute>} />
           <Route path="/paths/new" element={<ProtectedRoute><NewPath /></ProtectedRoute>} />
           <Route path="/paths/:pathId" element={<ProtectedRoute><PathDetail /></ProtectedRoute>} />
           <Route path="/modules/:moduleId" element={<ProtectedRoute><ModulePage /></ProtectedRoute>} />
@@ -82,8 +98,6 @@ export default function App() {
           <Route path="/auth/complete" element={<GoogleComplete />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/blog" element={<BlogIndex />} />
-          <Route path="/careers/:role" element={<Careers />} />
-          <Route path="/careers" element={<Careers />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />

@@ -36,7 +36,7 @@ const MOTIVATIONS = [
   { id: 'exam', icon: GraduationCap, label: 'Ace an interview / exam' },
 ]
 
-const STEPS = ['Interest', 'Theme', 'Level', 'Pace', 'Generate']
+const STEPS = ['Interest', 'Level', 'Pace', 'Generate']
 
 export default function Onboarding() {
   const navigate = useNavigate()
@@ -137,34 +137,8 @@ export default function Onboarding() {
             </>
           )}
 
-          {/* ── Step 1: Theme ── */}
+          {/* ── Step 1: Level ── */}
           {step === 1 && (
-            <>
-              <div className="onb-kicker">Make it yours</div>
-              <h1 className="onb-h1">Pick your favourite theme</h1>
-              <p className="onb-sub">Your whole experience recolours instantly — choose your vibe.</p>
-              <div className="onb-themes">
-                {THEMES.map(t => (
-                  <button
-                    key={t.id}
-                    className={`onb-theme ${theme === t.id ? 'selected' : ''}`}
-                    onClick={() => pickTheme(t.id)}
-                  >
-                    <span
-                      className="onb-theme-swatch"
-                      style={{ background: `linear-gradient(135deg, ${t.gradFrom}, ${t.gradTo})` }}
-                    >{t.emoji}</span>
-                    <span className="onb-theme-name">{t.name}</span>
-                    <span className="onb-theme-blurb">{t.blurb}</span>
-                    {theme === t.id && <span className="onb-theme-check"><Check size={13} /></span>}
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
-
-          {/* ── Step 2: Level ── */}
-          {step === 2 && (
             <>
               <div className="onb-kicker">Calibrate</div>
               <h1 className="onb-h1">Where are you right now?</h1>
@@ -181,8 +155,8 @@ export default function Onboarding() {
             </>
           )}
 
-          {/* ── Step 3: Pace + Motivation ── */}
-          {step === 3 && (
+          {/* ── Step 2: Pace + Motivation ── */}
+          {step === 2 && (
             <>
               <div className="onb-kicker">Almost there</div>
               <h1 className="onb-h1">How do you like to learn?</h1>

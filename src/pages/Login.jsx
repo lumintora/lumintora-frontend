@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import '../components/UI.css'
 import GoogleIcon from '../components/GoogleIcon'
+import { API_BASE } from '../lib/api'
 
 const features = [
   { icon: Route,        text: 'Pick up exactly where you left off' },
@@ -66,18 +67,9 @@ export default function Login() {
               </div>
             ))}
           </div>
-
-          <div className="auth-panel-quote">
-            <p>"The first learning platform that actually felt like it was built for me."</p>
-            <span>— Naveen Nelamalli, Job Aspirant</span>
-          </div>
         </div>
 
         <div className="auth-panel-stats">
-          <div className="auth-panel-stat"><span>1,200+</span><label>Paths generated</label></div>
-          <div className="auth-panel-stat-div" />
-          <div className="auth-panel-stat"><span>50+</span><label>Topics</label></div>
-          <div className="auth-panel-stat-div" />
           <div className="auth-panel-stat"><span>Free</span><label>No card needed</label></div>
         </div>
       </div>
@@ -134,7 +126,7 @@ export default function Login() {
           <button
             type="button"
             className="btn-google"
-            onClick={() => { window.location.href = `${import.meta.env.VITE_API_URL}/api/v1/auth/google` }}
+            onClick={() => { window.location.href = `${API_BASE}/api/v1/auth/google` }}
           >
             <GoogleIcon />
             Continue with Google

@@ -2,16 +2,17 @@
 
 :root {
   /* ── Surfaces — soft warm white, classic & calm ── */
-  --bg:    #faf9fc;
+  --bg:    #f3efe4;   /* warm paper canvas */
   --bg-1:  #ffffff;
-  --bg-2:  #f5f3f9;
-  --bg-3:  #ece9f2;
+  --bg-2:  #ece7d9;
+  --bg-3:  #e2dccb;
   --bg-elev: #ffffff;
-  --bg-ink: #15121d;   /* rare dark surface (code) */
+  --bg-ink: #15121d;   /* dark surface (code) */
 
-  --border:        rgba(26,22,40,0.09);
-  --border-2:      rgba(26,22,40,0.14);
-  --border-accent: rgba(113,64,255,0.28);
+  --ink:           #1a1626;   /* brutalist black — borders + hard shadows */
+  --border:        rgba(26,22,40,0.22);
+  --border-2:      #1a1626;
+  --border-accent: #1a1626;
 
   /* ── Text — warm near-black ── */
   --text:   #1a1626;
@@ -27,7 +28,7 @@
   --accent-soft:   rgba(113,64,255,0.08);
   --accent-softer: rgba(113,64,255,0.045);
   --accent-border: rgba(113,64,255,0.22);
-  --accent-glow:   rgba(113,64,255,0.30);
+  --accent-glow:   rgba(24,20,38,0.16);   /* neutral drop shadow — no colored glow */
 
   /* ── Functional accents (tuned for light bg) ── */
   --green:  #0f9d6b;
@@ -45,22 +46,24 @@
   --accent-danger: var(--rose);
   --accent-cyan: var(--cyan);
 
-  --grad: linear-gradient(135deg, #8b6bff 0%, #6a45f5 100%);
-  --grad-deep: linear-gradient(135deg, #7140ff 0%, #5b30d8 100%);
+  /* Flat, solid brand fills (no visible gradient) */
+  --grad: linear-gradient(135deg, #7140ff, #7140ff);
+  --grad-deep: linear-gradient(135deg, #5b30d8, #5b30d8);
 
-  --radius: 14px;
-  --radius-lg: 22px;
-  --radius-sm: 10px;
-  --radius-xs: 7px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-sm: 6px;
+  --radius-xs: 5px;
 
-  --font-display: 'Fraunces', 'Georgia', serif;
+  /* Clean sans for everything — product look, not editorial serif */
+  --font-display: 'Inter', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  --shadow-sm: 0 1px 2px rgba(24,20,38,0.06);
-  --shadow:    0 6px 20px -8px rgba(24,20,38,0.14);
-  --shadow-lg: 0 24px 54px -18px rgba(24,20,38,0.20);
-  --shadow-accent: 0 12px 30px -10px rgba(113,64,255,0.32);
+  --shadow-sm: 2px 2px 0 #1a1626;
+  --shadow:    4px 4px 0 #1a1626;
+  --shadow-lg: 7px 7px 0 #1a1626;
+  --shadow-accent: 4px 4px 0 #1a1626;
 
   --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --spring: 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -81,20 +84,11 @@ body {
   min-height: 100vh;
 }
 
-/* Faint warm wash so the white never feels flat */
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    radial-gradient(820px 480px at 8% -6%, rgba(113,64,255,0.06), transparent 60%),
-    radial-gradient(720px 520px at 102% 4%, rgba(14,143,196,0.035), transparent 55%);
-}
-
 h1,h2,h3,h4,h5,h6 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.14;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: var(--text);
   font-optical-sizing: auto;
 }
@@ -124,12 +118,10 @@ input, textarea, select { font-family: var(--font-body); }
 .animate-up { animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) both; }
 .animate-slide { animation: slideIn 0.3s ease both; }
 
-/* Gradient text (used sparingly) */
+/* Flat accent text (no gradient) */
 .gradient-text {
-  background: var(--grad-deep);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
 }
 
 /* small uppercase label */
